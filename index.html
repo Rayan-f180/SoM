@@ -575,19 +575,25 @@
     statusEl.textContent = "Saving…";
     statusEl.classList.add("visible");
  
-    // Hidden iframe to absorb the response (prevents page navigation)
+    const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfsRr_CfGYx-akfRyWqQ4SN5UyWh9Jz9uzBKn1mEtmuuAHI0w/formResponse";
+ 
     const iframe = document.createElement("iframe");
     iframe.name = "submit-target";
     iframe.style.display = "none";
     document.body.appendChild(iframe);
  
-    // Hidden form — submits directly to Apps Script, no CORS issues
     const form = document.createElement("form");
     form.method = "POST";
-    form.action = APPS_SCRIPT_URL;
-    form.target = "submit-target"; // response goes to iframe, not the page
+    form.action = FORM_URL;
+    form.target = "submit-target";
  
-    [["clip1", answers[0]], ["clip2", answers[1]], ["clip3", answers[2]]].forEach(([name, val]) => {
+    const fields = {
+      "entry.401580039":  answers[0],
+      "entry.1442421221": answers[1],
+      "entry.559325467":  answers[2],
+    };
+ 
+    Object.entries(fields).forEach(([name, val]) => {
       const input = document.createElement("input");
       input.type  = "hidden";
       input.name  = name;
@@ -600,7 +606,6 @@
  
     setTimeout(() => {
       statusEl.textContent = "Saved ✓";
-      document.body.removeChild(form);
     }, 1500);
   }
 </script>
