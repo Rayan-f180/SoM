@@ -1,40 +1,50 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-<script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@jaames/iro@5"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 50px;
+    }
+    button {
+      background-color: #4a6cff;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #334bcc;
+    }
+  </style>
 </head>
-
 <body>
 
-<h2>Select the colour that matches the sound</h2>
+<h2>Select the hue that matches the sound</h2>
 
 <div id="picker"></div>
-
 <br>
-
 <button onclick="submitColour()">Submit</button>
 
 <script>
+  // Initialize hue-only wheel
+  var colorPicker = new iro.ColorPicker("#picker", {
+    width: 250,
+    color: "#ff0000",
+    layout: [
+      { component: iro.ui.Wheel, options: { wheelLightness: false } }
+    ]
+  });
 
-var colorPicker = new iro.ColorPicker("#picker", {
-  width: 250,
-  color: "#ff0000",
-  layout: [
-    { component: iro.ui.Wheel }
-  ]
-});
-
-function submitColour(){
-
-  const hue = Math.round(colorPicker.color.hue);
-
-  const tallyURL =
-  "https://tally.so/r/YOURFORMID?hue=" + hue;
-
-  window.location.href = tallyURL;
-}
-
+  function submitColour() {
+    const hue = Math.round(colorPicker.color.hue); // 0–360
+    const tallyURL = "https://tally.so/r/YOURFORMID?hue=" + hue;
+    window.location.href = tallyURL;
+  }
 </script>
 
 </body>
