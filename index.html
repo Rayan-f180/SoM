@@ -383,7 +383,7 @@
   ];
 
   // Replace with your deployed Apps Script Web App URL
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzPLi2xzyLfrWXM1sKsieUyDPdB5RjP2-Kd8oaZZD_erLM6Y1mBLYTvYvFV2kRjghmw4Q/exec";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwlK8WPoV1esVTyoJIvZSHNNdGDI2beuOOImJ3SIEPYOCxI4y8k1oAbAoEpP0raHBULmg/exec";
 
   // ── STATE ─────────────────────────────────────────────────────────────────
   let currentClip = 0;
@@ -574,13 +574,21 @@
     const statusEl = document.getElementById("status-msg");
     statusEl.textContent = "Saving…";
     statusEl.classList.add("visible");
-
+ 
+    // Use form-encoded body — Apps Script reads via e.parameter and
+    // doesn't require CORS preflight, avoiding browser CORS blocks.
+    const body = new URLSearchParams({
+      clip1: answers[0],
+      clip2: answers[1],
+      clip3: answers[2],
+    });
+ 
     try {
       await fetch(APPS_SCRIPT_URL, {
         method:  "POST",
-        mode:    "no-cors", // required for cross-origin Apps Script requests
-        headers: { "Content-Type": "application/json" },
-        body:    JSON.stringify({ clip1: answers[0], clip2: answers[1], clip3: answers[2] }),
+        mode:    "no-cors",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body:    body.toString(),
       });
       statusEl.textContent = "Saved ✓";
     } catch (err) {
