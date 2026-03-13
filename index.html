@@ -570,31 +570,38 @@
   }
 
   // ── SUBMIT TO GOOGLE SHEETS ───────────────────────────────────────────────
-  async function submitToSheets() {
+  function submitToSheets() {
     const statusEl = document.getElementById("status-msg");
     statusEl.textContent = "Saving…";
     statusEl.classList.add("visible");
  
-    // Use form-encoded body — Apps Script reads via e.parameter and
-    // doesn't require CORS preflight, avoiding browser CORS blocks.
-    const body = new URLSearchParams({
-      clip1: answers[0],
-      clip2: answers[1],
-      clip3: answers[2],
+    // Hidden iframe to absorb the response (prevents page navigation)
+    const iframe = document.createElement("iframe");
+    iframe.name = "submit-target";
+    iframe.style.display = "none";
+    document.body.appendChild(iframe);
+ 
+    // Hidden form — submits directly to Apps Script, no CORS issues
+    const form = document.createElement("form");
+    form.method = "POST";
+    form.action = APPS_SCRIPT_URL;
+    form.target = "submit-target"; // response goes to iframe, not the page
+ 
+    [["clip1", answers[0]], ["clip2", answers[1]], ["clip3", answers[2]]].forEach(([name, val]) => {
+      const input = document.createElement("input");
+      input.type  = "hidden";
+      input.name  = name;
+      input.value = val;
+      form.appendChild(input);
     });
  
-    try {
-      await fetch(APPS_SCRIPT_URL, {
-        method:  "POST",
-        mode:    "no-cors",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body:    body.toString(),
-      });
+    document.body.appendChild(form);
+    form.submit();
+ 
+    setTimeout(() => {
       statusEl.textContent = "Saved ✓";
-    } catch (err) {
-      console.error("Submission error:", err);
-      statusEl.textContent = "Could not save — please note your answers.";
-    }
+      document.body.removeChild(form);
+    }, 1500);
   }
 </script>
 </body>
