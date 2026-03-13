@@ -14,7 +14,6 @@
       --border: #2a2a30;
       --text: #e8e8e4;
       --muted: #6b6b72;
-      --accent: #e8e8e4;
       --radius: 2px;
     }
 
@@ -31,7 +30,6 @@
       overflow-x: hidden;
     }
 
-    /* Subtle noise texture */
     body::before {
       content: '';
       position: fixed;
@@ -49,7 +47,6 @@
       max-width: 560px;
     }
 
-    /* ── SCREENS ── */
     .screen {
       display: none;
       flex-direction: column;
@@ -64,7 +61,6 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── WELCOME ── */
     .eyebrow {
       font-size: 0.65rem;
       letter-spacing: 0.2em;
@@ -80,11 +76,7 @@
       margin-bottom: 1.5rem;
       font-weight: 400;
     }
-
-    h1 em {
-      font-style: italic;
-      color: var(--muted);
-    }
+    h1 em { font-style: italic; color: var(--muted); }
 
     .description {
       font-size: 0.78rem;
@@ -94,7 +86,6 @@
       margin-bottom: 3rem;
     }
 
-    /* ── BUTTONS ── */
     .btn {
       background: var(--text);
       color: var(--bg);
@@ -112,14 +103,6 @@
     .btn:active { transform: translateY(0); }
     .btn:disabled { opacity: 0.25; cursor: not-allowed; transform: none; }
 
-    .btn-ghost {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
-    }
-    .btn-ghost:hover { border-color: var(--muted); opacity: 1; }
-
-    /* ── STEP INDICATOR ── */
     .step-indicator {
       display: flex;
       gap: 0.5rem;
@@ -133,9 +116,8 @@
       transition: background 0.4s;
     }
     .step-dot.active { background: var(--text); }
-    .step-dot.done { background: var(--muted); }
+    .step-dot.done   { background: var(--muted); }
 
-    /* ── CLIP LABEL ── */
     .clip-label {
       font-size: 0.65rem;
       letter-spacing: 0.2em;
@@ -143,7 +125,6 @@
       color: var(--muted);
       margin-bottom: 0.75rem;
     }
-
     .clip-title {
       font-family: 'DM Serif Display', serif;
       font-size: 1.8rem;
@@ -151,7 +132,6 @@
       margin-bottom: 2.5rem;
     }
 
-    /* ── WAVEFORM / PLAYER ── */
     .player-wrap {
       width: 100%;
       background: var(--surface);
@@ -170,7 +150,6 @@
       gap: 2px;
       overflow: hidden;
     }
-
     .waveform-bar {
       flex: 1;
       border-radius: 1px;
@@ -213,7 +192,6 @@
     .progress-fill {
       height: 100%;
       background: var(--text);
-      border-radius: 1px;
       width: 0%;
       transition: width 0.1s linear;
     }
@@ -225,7 +203,6 @@
       white-space: nowrap;
     }
 
-    /* ── COLOUR PICKER ── */
     .picker-wrap {
       width: 100%;
       display: flex;
@@ -233,7 +210,6 @@
       align-items: center;
       gap: 1.5rem;
     }
-
     .picker-label {
       font-size: 0.65rem;
       letter-spacing: 0.2em;
@@ -246,7 +222,6 @@
       width: 200px;
       height: 200px;
     }
-
     #hue-canvas {
       border-radius: 50%;
       cursor: crosshair;
@@ -266,8 +241,6 @@
       transform: translate(-50%, -50%);
       pointer-events: none;
       display: none;
-      top: 50%;
-      left: 50%;
     }
 
     .colour-preview {
@@ -275,17 +248,14 @@
       align-items: center;
       gap: 1rem;
     }
-
     .swatch {
       width: 32px;
       height: 32px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
-      background: #888;
-      transition: background 0.15s;
       display: none;
+      transition: background 0.15s;
     }
-
     .colour-value {
       font-size: 0.72rem;
       color: var(--muted);
@@ -293,13 +263,11 @@
       min-width: 80px;
     }
 
-    /* locked state */
     .picker-locked {
       opacity: 0.3;
       pointer-events: none;
       user-select: none;
     }
-
     .locked-msg {
       font-size: 0.68rem;
       color: var(--muted);
@@ -308,18 +276,19 @@
       margin-top: -0.5rem;
     }
 
-    .picker-actions {
-      margin-top: 1rem;
-    }
+    .thankyou-icon { font-size: 3rem; margin-bottom: 1.5rem; display: block; }
 
-    /* ── THANK YOU ── */
-    .thankyou-icon {
-      font-size: 3rem;
-      margin-bottom: 1.5rem;
-      display: block;
+    .status-msg {
+      font-size: 0.68rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.4s;
     }
+    .status-msg.visible { opacity: 1; }
 
-    /* ── DIVIDER ── */
     .divider {
       width: 40px;
       height: 1px;
@@ -327,7 +296,6 @@
       margin: 2rem auto;
     }
 
-    /* hidden audio */
     audio { display: none; }
   </style>
 </head>
@@ -340,13 +308,13 @@
     <h1>What colour does <em>sound</em> have?</h1>
     <p class="description">
       You'll listen to three short audio clips, one at a time.<br/>
-      After each clip plays, pick the colour it makes you feel.
+      After each clip plays, pick the colour it makes you feel.<br/>
       There are no right or wrong answers.
     </p>
     <button class="btn" onclick="startSurvey()">Begin</button>
   </div>
 
-  <!-- CLIP SCREENS (1–3) -->
+  <!-- CLIP SCREEN -->
   <div class="screen" id="screen-clip">
     <div class="step-indicator">
       <div class="step-dot" id="dot-0"></div>
@@ -357,12 +325,13 @@
     <p class="clip-label" id="clip-label">Clip 1 of 3</p>
     <h2 class="clip-title" id="clip-title">Audio Clip 1</h2>
 
-    <!-- Player -->
     <div class="player-wrap">
       <div class="waveform" id="waveform"></div>
       <div class="player-controls">
         <button class="play-btn" id="play-btn" onclick="togglePlay()">
-          <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg>
+          <svg id="play-icon" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5,3 19,12 5,21"/>
+          </svg>
         </button>
         <div class="progress-track">
           <div class="progress-fill" id="progress-fill"></div>
@@ -371,8 +340,7 @@
       </div>
     </div>
 
-    <!-- Colour Picker -->
-    <div class="picker-wrap" id="picker-wrap">
+    <div class="picker-wrap">
       <p class="picker-label">Pick a colour</p>
       <p class="locked-msg" id="locked-msg">— listen first —</p>
       <div class="hue-wheel-wrap picker-locked" id="wheel-wrap">
@@ -385,7 +353,7 @@
       </div>
     </div>
 
-    <div class="picker-actions" style="margin-top:2rem;">
+    <div style="margin-top:2rem;">
       <button class="btn" id="next-btn" onclick="nextClip()" disabled>
         <span id="next-label">Next clip →</span>
       </button>
@@ -395,36 +363,34 @@
   <!-- DONE -->
   <div class="screen" id="screen-done">
     <span class="thankyou-icon">◎</span>
-    <p class="eyebrow">All done</p>
-    <h1 style="font-size:2rem;">Thank you</h1>
+    <p class="eyebrow">Complete</p>
+    <h1 style="font-size:2.2rem;">Thank you.</h1>
     <div class="divider"></div>
-    <p class="description">Your responses have been recorded.<br/>You'll now be taken to confirm your answers.</p>
-    <button class="btn" onclick="submitToTally()" style="margin-top:1rem;">Submit responses →</button>
+    <p class="description">Your colour responses have been recorded.</p>
+    <p class="status-msg" id="status-msg">Saving…</p>
   </div>
 
 </div>
 
-<!-- Hidden audio elements (swap src with real files) -->
 <audio id="audio-el" preload="auto"></audio>
 
 <script>
-  // ── CONFIG ──────────────────────────────────────────────────────────────
+  // ── CONFIG ────────────────────────────────────────────────────────────────
   const CLIPS = [
-    { title: "Clip One",   src: "clip1.mp4" },
-    { title: "Clip Two",   src: "clip2.mp4" },
-    { title: "Clip Three", src: "clip3.mp4" },
+    { title: "Clip One",   src: "audio/clip1.mp3" },
+    { title: "Clip Two",   src: "audio/clip2.mp3" },
+    { title: "Clip Three", src: "audio/clip3.mp3" },
   ];
 
-  // Replace with your actual Tally form URL
-  // Tally hidden fields: add ?clip1=COLOR&clip2=COLOR&clip3=COLOR to the URL
-  const TALLY_BASE_URL = "https://tally.so/r/pbA8y1";
+  // Replace with your deployed Apps Script Web App URL
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec";
 
-  // ── STATE ────────────────────────────────────────────────────────────────
+  // ── STATE ─────────────────────────────────────────────────────────────────
   let currentClip = 0;
-  const answers = ["", "", ""];
-  let selectedHex = "";
+  const answers   = [null, null, null]; // hue integers 0–360
+  let selectedHue = null;
   let hasSelected = false;
-  let audioEnded = false;
+  let audioEnded  = false;
 
   const audio = document.getElementById("audio-el");
 
@@ -433,7 +399,7 @@
     document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
     const el = document.getElementById(id);
     el.classList.remove("active");
-    void el.offsetWidth; // reflow for animation restart
+    void el.offsetWidth;
     el.classList.add("active");
   }
 
@@ -445,64 +411,47 @@
   // ── CLIP LOADING ──────────────────────────────────────────────────────────
   function loadClip(index) {
     currentClip = index;
-    selectedHex = "";
+    selectedHue = null;
     hasSelected = false;
-    audioEnded = false;
+    audioEnded  = false;
 
-    // Labels
-    document.getElementById("clip-label").textContent = `Clip ${index + 1} of ${CLIPS.length}`;
-    document.getElementById("clip-title").textContent = CLIPS[index].title;
+    document.getElementById("clip-label").textContent  = `Clip ${index + 1} of ${CLIPS.length}`;
+    document.getElementById("clip-title").textContent  = CLIPS[index].title;
+    document.getElementById("next-btn").disabled       = true;
+    document.getElementById("next-label").textContent  = index === CLIPS.length - 1 ? "Finish →" : "Next clip →";
 
-    // Step dots
-    [0,1,2].forEach(i => {
-      const dot = document.getElementById(`dot-${i}`);
-      dot.className = "step-dot" + (i < index ? " done" : i === index ? " active" : "");
+    [0, 1, 2].forEach(i => {
+      document.getElementById(`dot-${i}`).className =
+        "step-dot" + (i < index ? " done" : i === index ? " active" : "");
     });
 
-    // Next button
-    const nextBtn = document.getElementById("next-btn");
-    nextBtn.disabled = true;
-    document.getElementById("next-label").textContent =
-      index === CLIPS.length - 1 ? "Finish →" : "Next clip →";
-
-    // Picker locked
     lockPicker(true);
-    document.getElementById("swatch").style.display = "none";
+    document.getElementById("swatch").style.display  = "none";
     document.getElementById("colour-value").textContent = "";
     document.getElementById("hue-cursor").style.display = "none";
 
-    // Audio
     audio.src = CLIPS[index].src;
     audio.load();
     updatePlayIcon(false);
     document.getElementById("progress-fill").style.width = "0%";
-    document.getElementById("time-display").textContent = "0:00";
-
-    // Waveform bars (decorative random heights)
+    document.getElementById("time-display").textContent  = "0:00";
     buildWaveform();
   }
 
   function buildWaveform() {
     const wv = document.getElementById("waveform");
     wv.innerHTML = "";
-    const count = 60;
-    for (let i = 0; i < count; i++) {
-      const h = 8 + Math.random() * 88;
+    for (let i = 0; i < 60; i++) {
       const bar = document.createElement("div");
-      bar.className = "waveform-bar";
-      bar.style.height = h + "%";
-      bar.dataset.idx = i;
+      bar.className  = "waveform-bar";
+      bar.style.height = (8 + Math.random() * 88) + "%";
       wv.appendChild(bar);
     }
   }
 
   // ── PLAYBACK ──────────────────────────────────────────────────────────────
   function togglePlay() {
-    if (audio.paused) {
-      audio.play().catch(() => {});
-    } else {
-      audio.pause();
-    }
+    audio.paused ? audio.play().catch(() => {}) : audio.pause();
   }
 
   function updatePlayIcon(playing) {
@@ -518,18 +467,12 @@
     const dur = audio.duration || 0;
     const pct = dur ? (audio.currentTime / dur) * 100 : 0;
     document.getElementById("progress-fill").style.width = pct + "%";
-
-    // Colour waveform bars as played
-    const bars = document.querySelectorAll(".waveform-bar");
+    const bars   = document.querySelectorAll(".waveform-bar");
     const played = Math.floor((pct / 100) * bars.length);
-    bars.forEach((b, i) => {
-      b.classList.toggle("played", i < played);
-    });
-
-    // Time
+    bars.forEach((b, i) => b.classList.toggle("played", i < played));
     const s = Math.floor(audio.currentTime);
     document.getElementById("time-display").textContent =
-      `${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;
+      `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
   });
 
   audio.addEventListener("ended", () => {
@@ -547,66 +490,61 @@
 
   // ── HUE WHEEL ────────────────────────────────────────────────────────────
   const canvas = document.getElementById("hue-canvas");
-  const ctx = canvas.getContext("2d");
+  const ctx    = canvas.getContext("2d");
   const cursor = document.getElementById("hue-cursor");
-  const SIZE = 200;
+  const SIZE   = 200;
 
   (function drawWheel() {
     const cx = SIZE / 2, cy = SIZE / 2, r = SIZE / 2;
-    for (let angle = 0; angle < 360; angle += 0.5) {
-      const startAngle = (angle - 1) * Math.PI / 180;
-      const endAngle   = (angle + 1) * Math.PI / 180;
+    for (let a = 0; a < 360; a += 0.5) {
       const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-      grad.addColorStop(0, `hsl(${angle}, 0%, 100%)`);
-      grad.addColorStop(1, `hsl(${angle}, 100%, 50%)`);
+      grad.addColorStop(0, `hsl(${a}, 0%, 100%)`);
+      grad.addColorStop(1, `hsl(${a}, 100%, 50%)`);
       ctx.beginPath();
       ctx.moveTo(cx, cy);
-      ctx.arc(cx, cy, r, startAngle, endAngle);
+      ctx.arc(cx, cy, r, (a - 1) * Math.PI / 180, (a + 1) * Math.PI / 180);
       ctx.closePath();
       ctx.fillStyle = grad;
       ctx.fill();
     }
-    // dark centre fade
-    const dark = ctx.createRadialGradient(cx,cy,0,cx,cy,r);
-    dark.addColorStop(0.0, "rgba(0,0,0,0.45)");
-    dark.addColorStop(0.25, "rgba(0,0,0,0.0)");
+    // dark centre vignette
+    const dark = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    dark.addColorStop(0.00, "rgba(0,0,0,0.45)");
+    dark.addColorStop(0.25, "rgba(0,0,0,0.00)");
     ctx.beginPath();
-    ctx.arc(cx,cy,r,0,2*Math.PI);
+    ctx.arc(cx, cy, r, 0, 2 * Math.PI);
     ctx.fillStyle = dark;
     ctx.fill();
   })();
 
   function pickColour(e) {
-    const wrap = document.getElementById("wheel-wrap");
-    if (wrap.classList.contains("picker-locked")) return;
+    if (document.getElementById("wheel-wrap").classList.contains("picker-locked")) return;
 
-    const rect = canvas.getBoundingClientRect();
-    const scaleX = SIZE / rect.width;
-    const scaleY = SIZE / rect.height;
+    const rect   = canvas.getBoundingClientRect();
+    const scaleX = SIZE / rect.width, scaleY = SIZE / rect.height;
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     const clientY = e.touches ? e.touches[0].clientY : e.clientY;
     const x = (clientX - rect.left) * scaleX;
     const y = (clientY - rect.top)  * scaleY;
 
-    const cx = SIZE/2, cy = SIZE/2, r = SIZE/2;
-    const dx = x - cx, dy = y - cy;
-    if (dx*dx + dy*dy > r*r) return;
+    const cx = SIZE / 2, cy = SIZE / 2, r = SIZE / 2;
+    if ((x - cx) ** 2 + (y - cy) ** 2 > r * r) return;
 
-    const px = canvas.getBoundingClientRect();
-    const nx = clientX - px.left;
-    const ny = clientY - px.top;
-    cursor.style.left = nx + "px";
-    cursor.style.top  = ny + "px";
+    // Cursor in CSS pixels relative to canvas element
+    cursor.style.left    = (clientX - rect.left) + "px";
+    cursor.style.top     = (clientY - rect.top)  + "px";
     cursor.style.display = "block";
 
-    const pixel = ctx.getImageData(Math.round(x), Math.round(y), 1, 1).data;
-    selectedHex = `#${[pixel[0],pixel[1],pixel[2]].map(v=>v.toString(16).padStart(2,"0")).join("")}`;
+    // Derive hue directly from angle — no pixel sampling needed
+    const angle = Math.atan2(y - cy, x - cx) * 180 / Math.PI;
+    selectedHue = Math.round((angle + 360) % 360);
     hasSelected = true;
 
-    document.getElementById("swatch").style.background = selectedHex;
-    document.getElementById("swatch").style.display = "block";
-    document.getElementById("colour-value").textContent = selectedHex.toUpperCase();
-    cursor.style.background = selectedHex;
+    const hueColor = `hsl(${selectedHue}, 90%, 55%)`;
+    cursor.style.background = hueColor;
+    document.getElementById("swatch").style.background = hueColor;
+    document.getElementById("swatch").style.display    = "block";
+    document.getElementById("colour-value").textContent = `Hue ${selectedHue}°`;
 
     checkCanProceed();
   }
@@ -615,30 +553,40 @@
   canvas.addEventListener("mousemove", e => { if (e.buttons === 1) pickColour(e); });
   canvas.addEventListener("touchmove", e => { e.preventDefault(); pickColour(e); }, { passive: false });
 
-  // ── PROCEED LOGIC ─────────────────────────────────────────────────────────
+  // ── PROCEED ───────────────────────────────────────────────────────────────
   function checkCanProceed() {
     document.getElementById("next-btn").disabled = !(audioEnded && hasSelected);
   }
 
   function nextClip() {
-    answers[currentClip] = selectedHex;
+    answers[currentClip] = selectedHue;
     audio.pause();
-
     if (currentClip < CLIPS.length - 1) {
       loadClip(currentClip + 1);
     } else {
       showScreen("screen-done");
+      submitToSheets();
     }
   }
 
-  // ── TALLY SUBMIT ──────────────────────────────────────────────────────────
-  function submitToTally() {
-    const params = new URLSearchParams({
-      clip1: answers[0],
-      clip2: answers[1],
-      clip3: answers[2],
-    });
-    window.location.href = `${TALLY_BASE_URL}?${params.toString()}`;
+  // ── SUBMIT TO GOOGLE SHEETS ───────────────────────────────────────────────
+  async function submitToSheets() {
+    const statusEl = document.getElementById("status-msg");
+    statusEl.textContent = "Saving…";
+    statusEl.classList.add("visible");
+
+    try {
+      await fetch(APPS_SCRIPT_URL, {
+        method:  "POST",
+        mode:    "no-cors", // required for cross-origin Apps Script requests
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({ clip1: answers[0], clip2: answers[1], clip3: answers[2] }),
+      });
+      statusEl.textContent = "Saved ✓";
+    } catch (err) {
+      console.error("Submission error:", err);
+      statusEl.textContent = "Could not save — please note your answers.";
+    }
   }
 </script>
 </body>
