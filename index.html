@@ -212,7 +212,7 @@
       user-select: none;
     }
 
-    .hue-slider-row {
+    .-slider-row {
       display: flex; align-items: center;
       gap: 1rem; width: 100%;
       margin-bottom: 0.5rem;
@@ -926,9 +926,12 @@
       "entry.1805770602": preliminary.baselineArousal,
       "entry.358544908":  preliminary.baselineAnxiety,
       "entry.172236766":  preliminary.baselineFocus,
-      "entry.401580039":  hueFor("Clip One",   "hueStart"),
-      "entry.1442421221": hueFor("Clip Two",   "hueStart"),
-      "entry.559325467":  hueFor("Clip Three", "hueStart"),
+      "entry.401580039":  hueFor("Mode 2", "hueStart"),
+      "entry.1442421221": hueFor("Mode 4", "hueStart"),
+      "entry.559325467":  hueFor("Mode 6", "hueStart"),
+      "entry.1994507963": hueFor("Mode 2", "hueEnd"),
+      "entry.390210294":  hueFor("Mode 4", "hueEnd"),
+      "entry.486741963":  hueFor("Mode 6", "hueEnd"),
     };
 
     Object.entries(fields).forEach(([name, val]) => {
