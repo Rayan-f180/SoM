@@ -296,6 +296,152 @@
       margin: 2rem auto;
     }
 
+    /* ── FORM ELEMENTS ── */
+.form-section {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 2rem;
+}
+.form-section-title {
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+}
+.form-row {
+  margin-bottom: 1.25rem;
+}
+.form-label {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+.form-input, .form-select {
+  width: 100%;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius);
+  outline: none;
+  transition: border-color 0.2s;
+  appearance: none;
+}
+.form-input:focus, .form-select:focus { border-color: var(--muted); }
+.form-select option { background: var(--surface); }
+
+.radio-group, .checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.radio-label, .checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.68rem;
+  color: var(--text);
+  cursor: pointer;
+}
+.radio-label input, .checkbox-label input {
+  accent-color: var(--text);
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.form-error {
+  font-size: 0.62rem;
+  color: #e06c75;
+  margin-top: 0.4rem;
+  display: none;
+}
+.form-error.visible { display: block; }
+
+/* ── LIKERT ── */
+.likert-row {
+  width: 100%;
+  margin-bottom: 1.75rem;
+}
+.likert-question {
+  font-size: 0.68rem;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+.likert-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.58rem;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+.likert-scale {
+  display: flex;
+  gap: 0.35rem;
+}
+.likert-scale input[type="radio"] { display: none; }
+.likert-scale label {
+  flex: 1;
+  height: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.62rem;
+  color: var(--muted);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+.likert-scale input[type="radio"]:checked + label {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+.likert-scale label:hover { border-color: var(--muted); }
+
+/* ── MINDFULNESS TIMER ── */
+.timer-circle {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 2rem auto;
+}
+.timer-circle svg {
+  transform: rotate(-90deg);
+  width: 120px;
+  height: 120px;
+}
+.timer-circle circle {
+  fill: none;
+  stroke-width: 2;
+}
+.timer-track { stroke: var(--border); }
+.timer-progress {
+  stroke: var(--text);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+.timer-number {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Serif Display', serif;
+  font-size: 2rem;
+  font-weight: 400;
+}
+
     audio { display: none; }
   </style>
 </head>
@@ -313,6 +459,205 @@
     </p>
     <button class="btn" onclick="startSurvey()">Begin</button>
   </div>
+
+  <!-- ABOUT YOU -->
+<div class="screen" id="screen-about">
+  <p class="eyebrow">Before we begin</p>
+  <h1 style="font-size:2rem; margin-bottom:2.5rem;">About <em>you</em></h1>
+
+  <div class="form-section">
+    <p class="form-section-title">Personal details</p>
+
+    <div class="form-row">
+      <label class="form-label" for="age">Age</label>
+      <input class="form-input" type="number" id="age" min="18" max="120" placeholder="e.g. 24" />
+      <p class="form-error" id="err-age">Please enter a valid age (18+)</p>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">Gender identity</label>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="gender" value="Female" /> Female</label>
+        <label class="radio-label"><input type="radio" name="gender" value="Male" /> Male</label>
+        <label class="radio-label"><input type="radio" name="gender" value="Non-binary" /> Non-binary</label>
+        <label class="radio-label"><input type="radio" name="gender" value="Prefer not to say" /> Prefer not to say</label>
+        <label class="radio-label"><input type="radio" name="gender" value="Self-description" /> Self-description —
+          <input class="form-input" type="text" id="gender-other" placeholder="describe…" style="margin-left:0.5rem; width:auto; flex:1; padding:0.3rem 0.5rem;" />
+        </label>
+      </div>
+      <p class="form-error" id="err-gender">Please select an option</p>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">Do you have any difficulty distinguishing colours, e.g. colour blindness?</label>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="vision" value="Yes" /> Yes</label>
+        <label class="radio-label"><input type="radio" name="vision" value="No" /> No</label>
+      </div>
+      <p class="form-error" id="err-vision">Please select an option</p>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">Do you have any known hearing impairments?</label>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="hearing" value="Yes" /> Yes</label>
+        <label class="radio-label"><input type="radio" name="hearing" value="No" /> No</label>
+      </div>
+      <p class="form-error" id="err-hearing">Please select an option</p>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <p class="form-section-title">Musical experience</p>
+
+    <div class="form-row">
+      <label class="form-label">Years of formal musical training (lessons / theory)</label>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="formal" value="0" /> 0</label>
+        <label class="radio-label"><input type="radio" name="formal" value="1-2" /> 1–2</label>
+        <label class="radio-label"><input type="radio" name="formal" value="3-5" /> 3–5</label>
+        <label class="radio-label"><input type="radio" name="formal" value="5-10" /> 5–10</label>
+        <label class="radio-label"><input type="radio" name="formal" value="10+" /> 10+</label>
+      </div>
+      <p class="form-error" id="err-formal">Please select an option</p>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">If zero formal years — years of self-taught playing / music production</label>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="selftaught" value="0" /> 0</label>
+        <label class="radio-label"><input type="radio" name="selftaught" value="1-2" /> 1–2</label>
+        <label class="radio-label"><input type="radio" name="selftaught" value="3-5" /> 3–5</label>
+        <label class="radio-label"><input type="radio" name="selftaught" value="5-10" /> 5–10</label>
+        <label class="radio-label"><input type="radio" name="selftaught" value="10+" /> 10+</label>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <label class="form-label">Do you have any experience performing music in front of an audience?</label>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="performance" value="Yes" /> Yes</label>
+        <label class="radio-label"><input type="radio" name="performance" value="No" /> No</label>
+      </div>
+      <p class="form-error" id="err-performance">Please select an option</p>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <p class="form-section-title">Technical calibration</p>
+
+    <div class="form-row">
+      <label class="form-label">How are you listening to the audio? We suggest headphones if available.</label>
+      <div class="radio-group">
+        <label class="radio-label"><input type="radio" name="audio-output" value="In-ear headphones" /> In-ear headphones</label>
+        <label class="radio-label"><input type="radio" name="audio-output" value="Over-ear headphones" /> Over-ear headphones</label>
+        <label class="radio-label"><input type="radio" name="audio-output" value="External speakers" /> External speakers</label>
+        <label class="radio-label"><input type="radio" name="audio-output" value="Laptop/phone speakers" /> Laptop / phone speakers</label>
+      </div>
+      <p class="form-error" id="err-audio">Please select an option</p>
+    </div>
+
+    <div class="form-row">
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" id="check-nightshift" />
+          I have turned off Night Shift / colour filters on my screen
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="check-brightness" />
+          My screen brightness is set to 100%
+        </label>
+      </div>
+      <p class="form-error" id="err-checks">Please confirm both technical checks</p>
+    </div>
+  </div>
+
+  <button class="btn" onclick="submitAbout()">Continue →</button>
+</div>
+
+<!-- MINDFULNESS -->
+<div class="screen" id="screen-mindfulness">
+  <p class="eyebrow">Take a moment</p>
+  <h1 style="font-size:2rem; margin-bottom:1rem;">Close your <em>eyes</em></h1>
+  <p class="description" style="margin-bottom:0;">
+    Focus on your breathing. The study will begin shortly.
+  </p>
+  <div class="timer-circle">
+    <svg viewBox="0 0 120 120">
+      <circle class="timer-track" cx="60" cy="60" r="54" />
+      <circle class="timer-progress" id="timer-progress" cx="60" cy="60" r="54"
+        stroke-dasharray="339.3"
+        stroke-dashoffset="0" />
+    </svg>
+    <div class="timer-number" id="timer-number">30</div>
+  </div>
+  <p class="description" id="mindfulness-sub">A sound will play when you are ready to begin.</p>
+</div>
+
+<!-- BASELINE MOOD -->
+<div class="screen" id="screen-baseline">
+  <p class="eyebrow">Before the clips</p>
+  <h1 style="font-size:2rem; margin-bottom:0.5rem;">Your current <em>mood</em></h1>
+  <p class="description" style="margin-bottom:2.5rem;">Rate how you feel right now.</p>
+
+  <div style="width:100%;">
+    <div class="likert-row">
+      <p class="likert-question">Valence</p>
+      <div class="likert-labels"><span>Unhappy / Negative</span><span>Happy / Positive</span></div>
+      <div class="likert-scale" id="likert-baseline-valence">
+        <input type="radio" name="b-valence" id="bv1" value="1"/><label for="bv1">1</label>
+        <input type="radio" name="b-valence" id="bv2" value="2"/><label for="bv2">2</label>
+        <input type="radio" name="b-valence" id="bv3" value="3"/><label for="bv3">3</label>
+        <input type="radio" name="b-valence" id="bv4" value="4"/><label for="bv4">4</label>
+        <input type="radio" name="b-valence" id="bv5" value="5"/><label for="bv5">5</label>
+        <input type="radio" name="b-valence" id="bv6" value="6"/><label for="bv6">6</label>
+        <input type="radio" name="b-valence" id="bv7" value="7"/><label for="bv7">7</label>
+      </div>
+    </div>
+    <div class="likert-row">
+      <p class="likert-question">Arousal</p>
+      <div class="likert-labels"><span>Sleepy / Tired</span><span>Alert / Energetic</span></div>
+      <div class="likert-scale" id="likert-baseline-arousal">
+        <input type="radio" name="b-arousal" id="ba1" value="1"/><label for="ba1">1</label>
+        <input type="radio" name="b-arousal" id="ba2" value="2"/><label for="ba2">2</label>
+        <input type="radio" name="b-arousal" id="ba3" value="3"/><label for="ba3">3</label>
+        <input type="radio" name="b-arousal" id="ba4" value="4"/><label for="ba4">4</label>
+        <input type="radio" name="b-arousal" id="ba5" value="5"/><label for="ba5">5</label>
+        <input type="radio" name="b-arousal" id="ba6" value="6"/><label for="ba6">6</label>
+        <input type="radio" name="b-arousal" id="ba7" value="7"/><label for="ba7">7</label>
+      </div>
+    </div>
+    <div class="likert-row">
+      <p class="likert-question">Anxiety</p>
+      <div class="likert-labels"><span>Calm / Relaxed</span><span>Anxious / Stressed</span></div>
+      <div class="likert-scale" id="likert-baseline-anxiety">
+        <input type="radio" name="b-anxiety" id="ban1" value="1"/><label for="ban1">1</label>
+        <input type="radio" name="b-anxiety" id="ban2" value="2"/><label for="ban2">2</label>
+        <input type="radio" name="b-anxiety" id="ban3" value="3"/><label for="ban3">3</label>
+        <input type="radio" name="b-anxiety" id="ban4" value="4"/><label for="ban4">4</label>
+        <input type="radio" name="b-anxiety" id="ban5" value="5"/><label for="ban5">5</label>
+        <input type="radio" name="b-anxiety" id="ban6" value="6"/><label for="ban6">6</label>
+        <input type="radio" name="b-anxiety" id="ban7" value="7"/><label for="ban7">7</label>
+      </div>
+    </div>
+    <div class="likert-row">
+      <p class="likert-question">Focus</p>
+      <div class="likert-labels"><span>Distracted</span><span>Focused</span></div>
+      <div class="likert-scale" id="likert-baseline-focus">
+        <input type="radio" name="b-focus" id="bf1" value="1"/><label for="bf1">1</label>
+        <input type="radio" name="b-focus" id="bf2" value="2"/><label for="bf2">2</label>
+        <input type="radio" name="b-focus" id="bf3" value="3"/><label for="bf3">3</label>
+        <input type="radio" name="b-focus" id="bf4" value="4"/><label for="bf4">4</label>
+        <input type="radio" name="b-focus" id="bf5" value="5"/><label for="bf5">5</label>
+        <input type="radio" name="b-focus" id="bf6" value="6"/><label for="bf6">6</label>
+        <input type="radio" name="b-focus" id="bf7" value="7"/><label for="bf7">7</label>
+      </div>
+    </div>
+  </div>
+
+  <p class="form-error" id="err-baseline" style="margin-bottom:1rem;">Please answer all four scales</p>
+  <button class="btn" onclick="submitBaseline()">Begin the study →</button>
+</div>
 
   <!-- CLIP SCREEN -->
   <div class="screen" id="screen-clip">
@@ -607,6 +952,130 @@
     setTimeout(() => {
       statusEl.textContent = "Saved ✓";
     }, 1500);
+  }
+
+  // ── PRELIMINARY DATA ──────────────────────────────────────────────────────
+  const preliminary = {};
+
+  // Welcome → About You
+  function startSurvey() {
+    showScreen("screen-about");
+  }
+
+  function submitAbout() {
+    let valid = true;
+
+    // Age
+    const age = document.getElementById("age").value;
+    const errAge = document.getElementById("err-age");
+    if (!age || age < 18) { errAge.classList.add("visible"); valid = false; }
+    else errAge.classList.remove("visible");
+
+    // Gender
+    const gender = document.querySelector('input[name="gender"]:checked');
+    const errGender = document.getElementById("err-gender");
+    if (!gender) { errGender.classList.add("visible"); valid = false; }
+    else errGender.classList.remove("visible");
+
+    // Vision
+    const vision = document.querySelector('input[name="vision"]:checked');
+    const errVision = document.getElementById("err-vision");
+    if (!vision) { errVision.classList.add("visible"); valid = false; }
+    else errVision.classList.remove("visible");
+
+    // Hearing
+    const hearing = document.querySelector('input[name="hearing"]:checked');
+    const errHearing = document.getElementById("err-hearing");
+    if (!hearing) { errHearing.classList.add("visible"); valid = false; }
+    else errHearing.classList.remove("visible");
+
+    // Formal training
+    const formal = document.querySelector('input[name="formal"]:checked');
+    const errFormal = document.getElementById("err-formal");
+    if (!formal) { errFormal.classList.add("visible"); valid = false; }
+    else errFormal.classList.remove("visible");
+
+    // Performance
+    const performance = document.querySelector('input[name="performance"]:checked');
+    const errPerf = document.getElementById("err-performance");
+    if (!performance) { errPerf.classList.add("visible"); valid = false; }
+    else errPerf.classList.remove("visible");
+
+    // Audio output
+    const audioOut = document.querySelector('input[name="audio-output"]:checked');
+    const errAudio = document.getElementById("err-audio");
+    if (!audioOut) { errAudio.classList.add("visible"); valid = false; }
+    else errAudio.classList.remove("visible");
+
+    // Technical checks
+    const ns = document.getElementById("check-nightshift").checked;
+    const br = document.getElementById("check-brightness").checked;
+    const errChecks = document.getElementById("err-checks");
+    if (!ns || !br) { errChecks.classList.add("visible"); valid = false; }
+    else errChecks.classList.remove("visible");
+
+    if (!valid) return;
+
+    // Store
+    preliminary.age         = age;
+    preliminary.gender      = gender.value === "Self-description"
+      ? document.getElementById("gender-other").value || "Self-description"
+      : gender.value;
+    preliminary.vision      = vision.value;
+    preliminary.hearing     = hearing.value;
+    preliminary.formal      = formal.value;
+    preliminary.selftaught  = document.querySelector('input[name="selftaught"]:checked')?.value || "N/A";
+    preliminary.performance = performance.value;
+    preliminary.audioOutput = audioOut.value;
+
+    showScreen("screen-mindfulness");
+    startMindfulness();
+  }
+
+  // ── MINDFULNESS TIMER ─────────────────────────────────────────────────────
+  function startMindfulness() {
+    const DURATION = 30;
+    const circumference = 339.3;
+    const prog = document.getElementById("timer-progress");
+    const num  = document.getElementById("timer-number");
+    let remaining = DURATION;
+
+    prog.style.strokeDashoffset = "0";
+
+    const tick = setInterval(() => {
+      remaining--;
+      num.textContent = remaining;
+      prog.style.strokeDashoffset =
+        ((DURATION - remaining) / DURATION * circumference).toString();
+
+      if (remaining <= 0) {
+        clearInterval(tick);
+        showScreen("screen-baseline");
+      }
+    }, 1000);
+  }
+
+  // ── BASELINE MOOD ─────────────────────────────────────────────────────────
+  function submitBaseline() {
+    const scales = ["b-valence", "b-arousal", "b-anxiety", "b-focus"];
+    const values = scales.map(name =>
+      document.querySelector(`input[name="${name}"]:checked`)?.value
+    );
+    const errBaseline = document.getElementById("err-baseline");
+
+    if (values.some(v => !v)) {
+      errBaseline.classList.add("visible");
+      return;
+    }
+    errBaseline.classList.remove("visible");
+
+    preliminary.baselineValence  = values[0];
+    preliminary.baselineArousal  = values[1];
+    preliminary.baselineAnxiety  = values[2];
+    preliminary.baselineFocus    = values[3];
+
+    showScreen("screen-clip");
+    loadClip(0);
   }
 </script>
 </body>
