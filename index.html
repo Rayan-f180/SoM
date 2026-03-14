@@ -932,11 +932,26 @@
     form.action = FORM_URL;
     form.target = "submit-target";
  
-    const fields = {
-      "entry.401580039":  answers[0],
-      "entry.1442421221": answers[1],
-      "entry.559325467":  answers[2],
-    };
+  const fields = {
+    // Preliminary
+    "entry.1169412550": preliminary.age,
+    "entry.1940936492": preliminary.gender,
+    "entry.1434214210": preliminary.formal,
+    "entry.140639284":  preliminary.selfTaught,
+    "entry.1861966939": preliminary.performance,
+    "entry.1785082074": preliminary.audioOutput,
+
+    // Baseline mood
+    "entry.1331108516": preliminary.baselineValence,
+    "entry.1805770602": preliminary.baselineArousal,
+    "entry.358544908":  preliminary.baselineAnxiety,
+    "entry.172236766":  preliminary.baselineFocus,
+
+    // Hue responses — looked up by clip title so order doesn't matter
+    "entry.401580039":  answers[CLIPS.findIndex(c => c.title === "Clip One")],
+    "entry.1442421221": answers[CLIPS.findIndex(c => c.title === "Clip Two")],
+    "entry.559325467":  answers[CLIPS.findIndex(c => c.title === "Clip Three")],
+  };
  
     Object.entries(fields).forEach(([name, val]) => {
       const input = document.createElement("input");
