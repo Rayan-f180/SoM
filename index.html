@@ -9,12 +9,13 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #0d0d0f;
+      --bg:      #0d0d0f;
       --surface: #16161a;
-      --border: #2a2a30;
-      --text: #e8e8e4;
-      --muted: #6b6b72;
-      --radius: 2px;
+      --border:  #2a2a30;
+      --text:    #e8e8e4;
+      --muted:   #6b6b72;
+      --error:   #e06c75;
+      --radius:  2px;
     }
 
     body {
@@ -47,6 +48,7 @@
       max-width: 560px;
     }
 
+    /* ── SCREENS ── */
     .screen {
       display: none;
       flex-direction: column;
@@ -61,6 +63,7 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ── TYPOGRAPHY ── */
     .eyebrow {
       font-size: 0.65rem;
       letter-spacing: 0.2em;
@@ -86,6 +89,7 @@
       margin-bottom: 3rem;
     }
 
+    /* ── BUTTONS ── */
     .btn {
       background: var(--text);
       color: var(--bg);
@@ -99,18 +103,14 @@
       border-radius: var(--radius);
       transition: opacity 0.2s, transform 0.15s;
     }
-    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
-    .btn:active { transform: translateY(0); }
+    .btn:hover   { opacity: 0.88; transform: translateY(-1px); }
+    .btn:active  { transform: translateY(0); }
     .btn:disabled { opacity: 0.25; cursor: not-allowed; transform: none; }
 
-    .step-indicator {
-      display: flex;
-      gap: 0.5rem;
-      margin-bottom: 3rem;
-    }
+    /* ── STEP DOTS ── */
+    .step-indicator { display: flex; gap: 0.5rem; margin-bottom: 3rem; }
     .step-dot {
-      width: 24px;
-      height: 2px;
+      width: 24px; height: 2px;
       background: var(--border);
       border-radius: 1px;
       transition: background 0.4s;
@@ -118,6 +118,7 @@
     .step-dot.active { background: var(--text); }
     .step-dot.done   { background: var(--muted); }
 
+    /* ── CLIP LABELS ── */
     .clip-label {
       font-size: 0.65rem;
       letter-spacing: 0.2em;
@@ -132,6 +133,7 @@
       margin-bottom: 2.5rem;
     }
 
+    /* ── PLAYER ── */
     .player-wrap {
       width: 100%;
       background: var(--surface);
@@ -140,42 +142,28 @@
       padding: 1.5rem;
       margin-bottom: 2.5rem;
     }
-
     .waveform {
-      width: 100%;
-      height: 56px;
+      width: 100%; height: 56px;
       margin-bottom: 1rem;
-      display: flex;
-      align-items: center;
-      gap: 2px;
+      display: flex; align-items: center; gap: 2px;
       overflow: hidden;
     }
     .waveform-bar {
-      flex: 1;
-      border-radius: 1px;
+      flex: 1; border-radius: 1px;
       background: var(--border);
       transition: background 0.3s;
       min-height: 4px;
     }
     .waveform-bar.played { background: var(--text); }
 
-    .player-controls {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-    }
+    .player-controls { display: flex; align-items: center; gap: 1rem; }
 
     .play-btn {
-      width: 36px;
-      height: 36px;
+      width: 36px; height: 36px;
       border-radius: 50%;
-      background: var(--text);
-      color: var(--bg);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: var(--text); color: var(--bg);
+      border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
       transition: opacity 0.2s, transform 0.15s;
     }
@@ -183,32 +171,24 @@
     .play-btn svg { width: 14px; height: 14px; }
 
     .progress-track {
-      flex: 1;
-      height: 2px;
+      flex: 1; height: 2px;
       background: var(--border);
-      border-radius: 1px;
-      overflow: hidden;
+      border-radius: 1px; overflow: hidden;
     }
     .progress-fill {
-      height: 100%;
-      background: var(--text);
-      width: 0%;
-      transition: width 0.1s linear;
+      height: 100%; background: var(--text);
+      width: 0%; transition: width 0.1s linear;
     }
-
     .time-display {
-      font-size: 0.65rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
-      white-space: nowrap;
+      font-size: 0.65rem; color: var(--muted);
+      letter-spacing: 0.05em; white-space: nowrap;
     }
 
+    /* ── GRADIENT PICKER ── */
     .picker-wrap {
       width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 1rem;
     }
     .picker-label {
       font-size: 0.65rem;
@@ -216,226 +196,176 @@
       text-transform: uppercase;
       color: var(--muted);
     }
+    .locked-msg {
+      font-size: 0.68rem; color: var(--muted);
+      letter-spacing: 0.1em; text-transform: uppercase;
+    }
 
-    .picker-locked {
+    /* The picker area dims and blocks interaction when locked */
+    #gradient-picker {
+      width: 100%;
+      transition: opacity 0.3s;
+    }
+    #gradient-picker.locked {
       opacity: 0.3;
       pointer-events: none;
       user-select: none;
     }
-    .locked-msg {
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-top: -0.5rem;
-    }
 
-    .thankyou-icon { font-size: 3rem; margin-bottom: 1.5rem; display: block; }
-
-    .status-msg {
-      font-size: 0.68rem;
-      color: var(--muted);
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      margin-top: 1.5rem;
-      opacity: 0;
-      transition: opacity 0.4s;
-    }
-    .status-msg.visible { opacity: 1; }
-
-    .divider {
-      width: 40px;
-      height: 1px;
-      background: var(--border);
-      margin: 2rem auto;
-    }
-
-    /* ── FORM ELEMENTS ── */
-    .form-section {
-      width: 100%;
-      text-align: left;
-      margin-bottom: 2rem;
-    }
-    .form-section-title {
-      font-size: 0.6rem;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border);
-    }
-    .form-row { margin-bottom: 1.25rem; }
-    .form-label {
-      display: block;
-      font-size: 0.68rem;
-      color: var(--muted);
-      margin-bottom: 0.5rem;
-      line-height: 1.5;
-    }
-    .form-input, .form-select {
-      width: 100%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: 'DM Mono', monospace;
-      font-size: 0.72rem;
-      padding: 0.65rem 0.85rem;
-      border-radius: var(--radius);
-      outline: none;
-      transition: border-color 0.2s;
-      appearance: none;
-    }
-    .form-input:focus, .form-select:focus { border-color: var(--muted); }
-    .form-select option { background: var(--surface); }
-
-    .radio-group, .checkbox-group {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    .radio-label, .checkbox-label {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-      font-size: 0.68rem;
-      color: var(--text);
-      cursor: pointer;
-    }
-    .radio-label input, .checkbox-label input {
-      accent-color: var(--text);
-      width: 14px;
-      height: 14px;
-      flex-shrink: 0;
-    }
-    .form-error {
-      font-size: 0.62rem;
-      color: #e06c75;
-      margin-top: 0.4rem;
-      display: none;
-    }
-    .form-error.visible { display: block; }
-
-    /* ── LIKERT ── */
-    .likert-row { width: 100%; margin-bottom: 1.75rem; }
-    .likert-question {
-      font-size: 0.68rem;
-      color: var(--text);
-      margin-bottom: 0.75rem;
-      line-height: 1.5;
-    }
-    .likert-labels {
-      display: flex;
-      justify-content: space-between;
-      font-size: 0.58rem;
-      color: var(--muted);
-      margin-bottom: 0.4rem;
-    }
-    .likert-scale { display: flex; gap: 0.35rem; }
-    .likert-scale input[type="radio"] { display: none; }
-    .likert-scale label {
-      flex: 1;
-      height: 32px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.62rem;
-      color: var(--muted);
-      transition: background 0.15s, border-color 0.15s, color 0.15s;
-    }
-    .likert-scale input[type="radio"]:checked + label {
-      background: var(--text);
-      color: var(--bg);
-      border-color: var(--text);
-    }
-    .likert-scale label:hover { border-color: var(--muted); }
-
-    /* ── MINDFULNESS TIMER ── */
-    .timer-circle {
-      position: relative;
-      width: 120px;
-      height: 120px;
-      margin: 2rem auto;
-    }
-    .timer-circle svg {
-      transform: rotate(-90deg);
-      width: 120px;
-      height: 120px;
-    }
-    .timer-circle circle { fill: none; stroke-width: 2; }
-    .timer-track { stroke: var(--border); }
-    .timer-progress {
-      stroke: var(--text);
-      stroke-linecap: round;
-      transition: stroke-dashoffset 1s linear;
-    }
-    .timer-number {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'DM Serif Display', serif;
-      font-size: 2rem;
-      font-weight: 400;
-    }
-
-    /* ── HUE STRIP SLIDERS ── */
     .hue-slider-row {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      width: 100%;
-      margin-bottom: 0.75rem;
+      display: flex; align-items: center;
+      gap: 1rem; width: 100%;
+      margin-bottom: 0.5rem;
     }
     .hue-slider-label {
-      font-size: 0.62rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      width: 32px;
-      flex-shrink: 0;
+      font-size: 0.62rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted);
+      width: 36px; flex-shrink: 0;
     }
+
+    /* Rainbow strip behind the slider */
     .hue-strip-wrap {
-      flex: 1;
-      height: 20px;
+      flex: 1; height: 24px;
       border-radius: var(--radius);
+      position: relative;
       background: linear-gradient(to right,
         hsl(0,90%,55%), hsl(30,90%,55%), hsl(60,90%,55%), hsl(90,90%,55%),
         hsl(120,90%,55%), hsl(150,90%,55%), hsl(180,90%,55%), hsl(210,90%,55%),
         hsl(240,90%,55%), hsl(270,90%,55%), hsl(300,90%,55%), hsl(330,90%,55%),
         hsl(360,90%,55%));
-      position: relative;
       box-shadow: 0 0 0 1px var(--border);
     }
+
+    /* Range input sits on top of the strip, fully visible */
     .hue-strip {
+      -webkit-appearance: none;
+      appearance: none;
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      opacity: 0;
+      background: transparent;
       cursor: pointer;
       margin: 0;
+      padding: 0;
     }
+    .hue-strip:focus { outline: none; }
+
+    /* Webkit thumb */
+    .hue-strip::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 8px;
+      height: 32px;
+      border-radius: 3px;
+      background: #fff;
+      border: none;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.6);
+      cursor: pointer;
+    }
+    /* Firefox thumb */
+    .hue-strip::-moz-range-thumb {
+      width: 8px;
+      height: 32px;
+      border-radius: 3px;
+      background: #fff;
+      border: none;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.6);
+      cursor: pointer;
+    }
+    /* Hide default track */
+    .hue-strip::-webkit-slider-runnable-track { background: transparent; }
+    .hue-strip::-moz-range-track { background: transparent; }
+
     .hue-swatch {
-      width: 20px;
-      height: 20px;
+      width: 24px; height: 24px;
       border-radius: var(--radius);
       border: 1px solid var(--border);
       flex-shrink: 0;
       transition: background 0.15s;
     }
+
     .gradient-preview {
-      width: 100%;
-      height: 48px;
+      width: 100%; height: 56px;
       border-radius: var(--radius);
-      margin-bottom: 0.75rem;
       border: 1px solid var(--border);
-      transition: background 0.15s;
+      margin: 0.5rem 0;
+      transition: background 0.1s;
+    }
+
+    /* ── MISC ── */
+    .thankyou-icon { font-size: 3rem; margin-bottom: 1.5rem; display: block; }
+    .divider { width: 40px; height: 1px; background: var(--border); margin: 2rem auto; }
+    .status-msg {
+      font-size: 0.68rem; color: var(--muted);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      margin-top: 1.5rem; opacity: 0; transition: opacity 0.4s;
+    }
+    .status-msg.visible { opacity: 1; }
+
+    /* ── FORM ELEMENTS ── */
+    .form-section { width: 100%; text-align: left; margin-bottom: 2rem; }
+    .form-section-title {
+      font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem; border-bottom: 1px solid var(--border);
+    }
+    .form-row { margin-bottom: 1.25rem; }
+    .form-label {
+      display: block; font-size: 0.68rem; color: var(--muted);
+      margin-bottom: 0.5rem; line-height: 1.5;
+    }
+    .form-input {
+      width: 100%; background: var(--surface); border: 1px solid var(--border);
+      color: var(--text); font-family: 'DM Mono', monospace;
+      font-size: 0.72rem; padding: 0.65rem 0.85rem;
+      border-radius: var(--radius); outline: none;
+      transition: border-color 0.2s; appearance: none;
+    }
+    .form-input:focus { border-color: var(--muted); }
+
+    .radio-group, .checkbox-group { display: flex; flex-direction: column; gap: 0.5rem; }
+    .radio-label, .checkbox-label {
+      display: flex; align-items: center; gap: 0.65rem;
+      font-size: 0.68rem; color: var(--text); cursor: pointer;
+    }
+    .radio-label input, .checkbox-label input {
+      accent-color: var(--text); width: 14px; height: 14px; flex-shrink: 0;
+    }
+    .form-error {
+      font-size: 0.62rem; color: var(--error);
+      margin-top: 0.4rem; display: none;
+    }
+    .form-error.visible { display: block; }
+
+    /* ── LIKERT ── */
+    .likert-row { width: 100%; margin-bottom: 1.75rem; }
+    .likert-question { font-size: 0.68rem; color: var(--text); margin-bottom: 0.75rem; line-height: 1.5; }
+    .likert-labels { display: flex; justify-content: space-between; font-size: 0.58rem; color: var(--muted); margin-bottom: 0.4rem; }
+    .likert-scale { display: flex; gap: 0.35rem; }
+    .likert-scale input[type="radio"] { display: none; }
+    .likert-scale label {
+      flex: 1; height: 32px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.62rem; color: var(--muted);
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .likert-scale input[type="radio"]:checked + label {
+      background: var(--text); color: var(--bg); border-color: var(--text);
+    }
+    .likert-scale label:hover { border-color: var(--muted); }
+
+    /* ── MINDFULNESS TIMER ── */
+    .timer-circle { position: relative; width: 120px; height: 120px; margin: 2rem auto; }
+    .timer-circle svg { transform: rotate(-90deg); width: 120px; height: 120px; }
+    .timer-circle circle { fill: none; stroke-width: 2; }
+    .timer-track  { stroke: var(--border); }
+    .timer-progress { stroke: var(--text); stroke-linecap: round; transition: stroke-dashoffset 1s linear; }
+    .timer-number {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Serif Display', serif; font-size: 2rem; font-weight: 400;
     }
 
     audio { display: none; }
@@ -463,13 +393,11 @@
 
     <div class="form-section">
       <p class="form-section-title">Personal details</p>
-
       <div class="form-row">
         <label class="form-label" for="age">Age</label>
         <input class="form-input" type="number" id="age" min="18" max="120" placeholder="e.g. 24" />
         <p class="form-error" id="err-age">Please enter a valid age (18+)</p>
       </div>
-
       <div class="form-row">
         <label class="form-label">Gender identity</label>
         <div class="radio-group">
@@ -478,12 +406,11 @@
           <label class="radio-label"><input type="radio" name="gender" value="Non-binary" /> Non-binary</label>
           <label class="radio-label"><input type="radio" name="gender" value="Prefer not to say" /> Prefer not to say</label>
           <label class="radio-label"><input type="radio" name="gender" value="Self-description" /> Self-description —
-            <input class="form-input" type="text" id="gender-other" placeholder="describe…" style="margin-left:0.5rem; width:auto; flex:1; padding:0.3rem 0.5rem;" />
+            <input class="form-input" type="text" id="gender-other" placeholder="describe…" style="margin-left:0.5rem;width:auto;flex:1;padding:0.3rem 0.5rem;" />
           </label>
         </div>
         <p class="form-error" id="err-gender">Please select an option</p>
       </div>
-
       <div class="form-row">
         <label class="form-label">Do you have any difficulty distinguishing colours, e.g. colour blindness?</label>
         <div class="radio-group">
@@ -492,7 +419,6 @@
         </div>
         <p class="form-error" id="err-vision">Please select an option</p>
       </div>
-
       <div class="form-row">
         <label class="form-label">Do you have any known hearing impairments?</label>
         <div class="radio-group">
@@ -505,7 +431,6 @@
 
     <div class="form-section">
       <p class="form-section-title">Musical experience</p>
-
       <div class="form-row">
         <label class="form-label">Years of formal musical training (lessons / theory)</label>
         <div class="radio-group">
@@ -517,7 +442,6 @@
         </div>
         <p class="form-error" id="err-formal">Please select an option</p>
       </div>
-
       <div class="form-row">
         <label class="form-label">If zero formal years — years of self-taught playing / music production</label>
         <div class="radio-group">
@@ -528,7 +452,6 @@
           <label class="radio-label"><input type="radio" name="selftaught" value="10+" /> 10+</label>
         </div>
       </div>
-
       <div class="form-row">
         <label class="form-label">Do you have any experience performing music in front of an audience?</label>
         <div class="radio-group">
@@ -541,7 +464,6 @@
 
     <div class="form-section">
       <p class="form-section-title">Technical calibration</p>
-
       <div class="form-row">
         <label class="form-label">How are you listening to the audio? We suggest headphones if available.</label>
         <div class="radio-group">
@@ -552,7 +474,6 @@
         </div>
         <p class="form-error" id="err-audio">Please select an option</p>
       </div>
-
       <div class="form-row">
         <div class="checkbox-group">
           <label class="checkbox-label">
@@ -575,19 +496,16 @@
   <div class="screen" id="screen-mindfulness">
     <p class="eyebrow">Take a moment</p>
     <h1 style="font-size:2rem; margin-bottom:1rem;">Close your <em>eyes</em></h1>
-    <p class="description" style="margin-bottom:0;">
-      Focus on your breathing. The study will begin shortly.
-    </p>
+    <p class="description" style="margin-bottom:0;">Focus on your breathing. The study will begin shortly.</p>
     <div class="timer-circle">
       <svg viewBox="0 0 120 120">
         <circle class="timer-track" cx="60" cy="60" r="54" />
         <circle class="timer-progress" id="timer-progress" cx="60" cy="60" r="54"
-          stroke-dasharray="339.3"
-          stroke-dashoffset="0" />
+          stroke-dasharray="339.3" stroke-dashoffset="0" />
       </svg>
       <div class="timer-number" id="timer-number">30</div>
     </div>
-    <p class="description" id="mindfulness-sub">A sound will play when you are ready to begin.</p>
+    <p class="description">A sound will play when you are ready to begin.</p>
   </div>
 
   <!-- BASELINE MOOD -->
@@ -595,8 +513,8 @@
     <p class="eyebrow">Before the clips</p>
     <h1 style="font-size:2rem; margin-bottom:0.5rem;">Your current <em>mood</em></h1>
     <p class="description" style="margin-bottom:2.5rem;">Rate how you feel right now.</p>
-
     <div style="width:100%;">
+
       <div class="likert-row">
         <p class="likert-question">Valence</p>
         <div class="likert-labels"><span>Unhappy / Negative</span><span>Happy / Positive</span></div>
@@ -610,6 +528,7 @@
           <input type="radio" name="b-valence" id="bv7" value="7"/><label for="bv7">7</label>
         </div>
       </div>
+
       <div class="likert-row">
         <p class="likert-question">Arousal</p>
         <div class="likert-labels"><span>Sleepy / Tired</span><span>Alert / Energetic</span></div>
@@ -623,6 +542,7 @@
           <input type="radio" name="b-arousal" id="ba7" value="7"/><label for="ba7">7</label>
         </div>
       </div>
+
       <div class="likert-row">
         <p class="likert-question">Anxiety</p>
         <div class="likert-labels"><span>Calm / Relaxed</span><span>Anxious / Stressed</span></div>
@@ -636,6 +556,7 @@
           <input type="radio" name="b-anxiety" id="ban7" value="7"/><label for="ban7">7</label>
         </div>
       </div>
+
       <div class="likert-row">
         <p class="likert-question">Focus</p>
         <div class="likert-labels"><span>Distracted</span><span>Focused</span></div>
@@ -649,8 +570,8 @@
           <input type="radio" name="b-focus" id="bf7" value="7"/><label for="bf7">7</label>
         </div>
       </div>
-    </div>
 
+    </div>
     <p class="form-error" id="err-baseline" style="margin-bottom:1rem;">Please answer all four scales</p>
     <button class="btn" onclick="submitBaseline()">Begin the study →</button>
   </div>
@@ -685,7 +606,7 @@
       <p class="picker-label">Create a colour gradient</p>
       <p class="locked-msg" id="locked-msg">— listen first —</p>
 
-      <div id="gradient-picker" class="picker-locked">
+      <div id="gradient-picker" class="locked">
         <div class="hue-slider-row">
           <span class="hue-slider-label">Start</span>
           <div class="hue-strip-wrap">
@@ -738,13 +659,13 @@
   const FORM_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfsRr_CfGYx-akfRyWqQ4SN5UyWh9Jz9uzBKn1mEtmuuAHI0w/formResponse";
 
   // ── STATE ─────────────────────────────────────────────────────────────────
-  const preliminary  = {};           // stores about-you + baseline data
-  const answers      = [];           // stores { clip, hueStart, hueEnd } per clip
-  let currentClip    = 0;
+  const preliminary    = {};
+  const answers        = [];
+  let currentClip      = 0;
   let selectedHueStart = 0;
   let selectedHueEnd   = 180;
-  let hasSelected    = false;
-  let audioEnded     = false;
+  let hasSelected      = false;
+  let audioEnded       = false;
 
   const audio = document.getElementById("audio-el");
 
@@ -757,7 +678,7 @@
     el.classList.add("active");
   }
 
-  // ── WELCOME → ABOUT YOU ───────────────────────────────────────────────────
+  // ── WELCOME ───────────────────────────────────────────────────────────────
   function startSurvey() {
     showScreen("screen-about");
   }
@@ -768,8 +689,8 @@
 
     function check(condition, errorId) {
       const el = document.getElementById(errorId);
-      if (!condition) { el.classList.add("visible");    valid = false; }
-      else              el.classList.remove("visible");
+      if (!condition) { el.classList.add("visible"); valid = false; }
+      else el.classList.remove("visible");
     }
 
     const age         = document.getElementById("age").value;
@@ -808,35 +729,27 @@
     startMindfulness();
   }
 
-  // ── MINDFULNESS TIMER ─────────────────────────────────────────────────────
+  // ── MINDFULNESS ───────────────────────────────────────────────────────────
   function startMindfulness() {
-    const DURATION      = 30;
-    const CIRCUMFERENCE = 339.3;
-    const prog          = document.getElementById("timer-progress");
-    const num           = document.getElementById("timer-number");
-    let remaining       = DURATION;
-
+    const DURATION = 30, CIRC = 339.3;
+    const prog = document.getElementById("timer-progress");
+    const num  = document.getElementById("timer-number");
+    let remaining = DURATION;
     prog.style.strokeDashoffset = "0";
 
     const tick = setInterval(() => {
       remaining--;
       num.textContent = remaining;
-      prog.style.strokeDashoffset =
-        ((DURATION - remaining) / DURATION * CIRCUMFERENCE).toString();
-      if (remaining <= 0) {
-        clearInterval(tick);
-        showScreen("screen-baseline");
-      }
+      prog.style.strokeDashoffset = ((DURATION - remaining) / DURATION * CIRC).toString();
+      if (remaining <= 0) { clearInterval(tick); showScreen("screen-baseline"); }
     }, 1000);
   }
 
-  // ── BASELINE MOOD ─────────────────────────────────────────────────────────
+  // ── BASELINE ──────────────────────────────────────────────────────────────
   function submitBaseline() {
     const scales = ["b-valence", "b-arousal", "b-anxiety", "b-focus"];
-    const values = scales.map(name =>
-      document.querySelector(`input[name="${name}"]:checked`)?.value
-    );
-    const errEl = document.getElementById("err-baseline");
+    const values = scales.map(n => document.querySelector(`input[name="${n}"]:checked`)?.value);
+    const errEl  = document.getElementById("err-baseline");
 
     if (values.some(v => !v)) { errEl.classList.add("visible"); return; }
     errEl.classList.remove("visible");
@@ -846,9 +759,7 @@
     preliminary.baselineAnxiety = values[2];
     preliminary.baselineFocus   = values[3];
 
-    // Randomise clip order to remove order effects
     CLIPS.sort(() => Math.random() - 0.5);
-
     showScreen("screen-clip");
     loadClip(0);
   }
@@ -930,12 +841,20 @@
   });
 
   // ── PICKER LOCK ───────────────────────────────────────────────────────────
+  // Uses class "locked" (not "picker-locked") to avoid any old CSS conflicts
   function lockPicker(locked) {
-    document.getElementById("gradient-picker").classList.toggle("picker-locked", locked);
-    document.getElementById("locked-msg").style.display = locked ? "block" : "none";
+    const picker = document.getElementById("gradient-picker");
+    const msg    = document.getElementById("locked-msg");
+    if (locked) {
+      picker.classList.add("locked");
+      msg.style.display = "block";
+    } else {
+      picker.classList.remove("locked");
+      msg.style.display = "none";
+    }
   }
 
-  // ── HUE GRADIENT SLIDERS ──────────────────────────────────────────────────
+  // ── GRADIENT SLIDERS ──────────────────────────────────────────────────────
   function updateGradient() {
     selectedHueStart = parseInt(document.getElementById("hue-start").value);
     selectedHueEnd   = parseInt(document.getElementById("hue-end").value);
@@ -952,7 +871,7 @@
     checkCanProceed();
   }
 
-  // Initialise gradient visuals on page load
+  // Initialise gradient visuals on load
   updateGradient();
 
   // ── PROCEED ───────────────────────────────────────────────────────────────
@@ -961,14 +880,12 @@
   }
 
   function nextClip() {
-    // Store answer keyed by clip title so randomised order doesn't affect sheet columns
     answers[currentClip] = {
       clip:     CLIPS[currentClip].title,
       hueStart: selectedHueStart,
       hueEnd:   selectedHueEnd,
     };
     audio.pause();
-
     if (currentClip < CLIPS.length - 1) {
       loadClip(currentClip + 1);
     } else {
@@ -977,74 +894,64 @@
     }
   }
 
-  // ── SUBMIT TO GOOGLE FORM ─────────────────────────────────────────────────
+  // ── SUBMIT ────────────────────────────────────────────────────────────────
   function submitToForm() {
     const statusEl = document.getElementById("status-msg");
     statusEl.textContent = "Saving…";
     statusEl.classList.add("visible");
 
-    // Hidden iframe absorbs the form response so the page doesn't navigate away
     const iframe = document.createElement("iframe");
     iframe.name  = "submit-target";
     iframe.style.display = "none";
     document.body.appendChild(iframe);
 
-    const form   = document.createElement("form");
-    form.method  = "POST";
-    form.action  = FORM_URL;
-    form.target  = "submit-target";
+    const form  = document.createElement("form");
+    form.method = "POST";
+    form.action = FORM_URL;
+    form.target = "submit-target";
 
-    // Helper: look up hue value for a clip by title (safe for random order)
     const hueFor = (title, key) => {
       const entry = answers.find(a => a?.clip === title);
       return entry ? entry[key] : "";
     };
 
     const fields = {
-      // Preliminary
       "entry.1169412550": preliminary.age,
       "entry.1940936492": preliminary.gender,
       "entry.1434214210": preliminary.formal,
       "entry.140639284":  preliminary.selfTaught,
       "entry.1861966939": preliminary.performance,
       "entry.1785082074": preliminary.audioOutput,
-
-      // Baseline mood
       "entry.1331108516": preliminary.baselineValence,
       "entry.1805770602": preliminary.baselineArousal,
       "entry.358544908":  preliminary.baselineAnxiety,
       "entry.172236766":  preliminary.baselineFocus,
-
-      // Hue responses — looked up by clip title so order doesn't matter
       "entry.401580039":  hueFor("Clip One",   "hueStart"),
       "entry.1442421221": hueFor("Clip Two",   "hueStart"),
       "entry.559325467":  hueFor("Clip Three", "hueStart"),
     };
 
     Object.entries(fields).forEach(([name, val]) => {
-      const input  = document.createElement("input");
-      input.type   = "hidden";
-      input.name   = name;
-      input.value  = val ?? "";
+      const input = document.createElement("input");
+      input.type  = "hidden";
+      input.name  = name;
+      input.value = val ?? "";
       form.appendChild(input);
     });
 
     document.body.appendChild(form);
     form.submit();
-
     setTimeout(() => { statusEl.textContent = "Saved ✓"; }, 1500);
   }
 
-  // ── QUICK TEST (console only) ─────────────────────────────────────────────
-  // To test submission without going through the full flow, run in console:
+  // ── CONSOLE TEST ──────────────────────────────────────────────────────────
+  // Simulate a full submission without going through the flow:
   // answers[0]={clip:"Clip One",hueStart:120,hueEnd:240};
   // answers[1]={clip:"Clip Two",hueStart:30,hueEnd:180};
   // answers[2]={clip:"Clip Three",hueStart:200,hueEnd:320};
-  // preliminary.age="22"; preliminary.gender="Female"; preliminary.formal="3-5";
-  // preliminary.selfTaught="N/A"; preliminary.performance="Yes";
-  // preliminary.audioOutput="Over-ear headphones";
-  // preliminary.baselineValence="5"; preliminary.baselineArousal="4";
-  // preliminary.baselineAnxiety="2"; preliminary.baselineFocus="6";
+  // Object.assign(preliminary,{age:"22",gender:"Female",formal:"3-5",
+  //   selfTaught:"N/A",performance:"Yes",audioOutput:"Over-ear headphones",
+  //   baselineValence:"5",baselineArousal:"4",baselineAnxiety:"2",baselineFocus:"6"});
   // submitToForm();
 </script>
 </body>
