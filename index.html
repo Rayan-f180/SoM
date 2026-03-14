@@ -820,11 +820,6 @@
     el.classList.add("active");
   }
 
-  function startSurvey() {
-    showScreen("screen-clip");
-    loadClip(0);
-  }
-
   // ── CLIP LOADING ──────────────────────────────────────────────────────────
   function loadClip(index) {
     currentClip = index;
@@ -933,9 +928,6 @@ function updateGradient() {
 // Initialise gradient on page load
 updateGradient();
 
-  canvas.addEventListener("click",     pickColour);
-  canvas.addEventListener("mousemove", e => { if (e.buttons === 1) pickColour(e); });
-  canvas.addEventListener("touchmove", e => { e.preventDefault(); pickColour(e); }, { passive: false });
 
   // ── PROCEED ───────────────────────────────────────────────────────────────
   function checkCanProceed() {
