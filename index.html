@@ -633,7 +633,148 @@
       </button>
     </div>
   </div>
-
+  <!-- LIKERT SCREEN -->
+  <div class="screen" id="screen-likert">
+    <div class="step-indicator">
+      <div class="step-dot" id="ldot-0"></div>
+      <div class="step-dot" id="ldot-1"></div>
+      <div class="step-dot" id="ldot-2"></div>
+    </div>
+  
+    <p class="clip-label" id="likert-clip-label">Clip 1 of 3</p>
+    <h2 class="clip-title" id="likert-clip-title">Mode 2</h2>
+  
+    <div class="player-wrap">
+      <div class="waveform" id="likert-waveform"></div>
+      <div class="player-controls">
+        <button class="play-btn" onclick="toggleLikertPlay()">
+          <svg id="likert-play-icon" viewBox="0 0 24 24" fill="currentColor">
+            <polygon points="5,3 19,12 5,21" />
+          </svg>
+        </button>
+        <div class="progress-track">
+          <div class="progress-fill" id="likert-progress-fill"></div>
+        </div>
+        <span class="time-display" id="likert-time-display">0:00</span>
+      </div>
+    </div>
+  
+    <p class="description" style="margin-bottom:1.5rem; text-align:left;">
+      Focus on the sound you just heard — rate its musical character and how it makes you feel.
+    </p>
+  
+    <div style="width:100%;">
+      <div class="likert-row">
+        <p class="likert-question">Valence</p>
+        <div class="likert-labels"><span>Unhappy / Negative</span><span>Happy / Positive</span></div>
+        <div class="likert-scale">
+          <input type="radio" name="l-valence" id="lv1" value="1" /><label for="lv1">1</label>
+          <input type="radio" name="l-valence" id="lv2" value="2" /><label for="lv2">2</label>
+          <input type="radio" name="l-valence" id="lv3" value="3" /><label for="lv3">3</label>
+          <input type="radio" name="l-valence" id="lv4" value="4" /><label for="lv4">4</label>
+          <input type="radio" name="l-valence" id="lv5" value="5" /><label for="lv5">5</label>
+          <input type="radio" name="l-valence" id="lv6" value="6" /><label for="lv6">6</label>
+          <input type="radio" name="l-valence" id="lv7" value="7" /><label for="lv7">7</label>
+        </div>
+      </div>
+      <div class="likert-row">
+        <p class="likert-question">Arousal</p>
+        <div class="likert-labels"><span>Sleepy / Tired</span><span>Alert / Energetic</span></div>
+        <div class="likert-scale">
+          <input type="radio" name="l-arousal" id="la1" value="1" /><label for="la1">1</label>
+          <input type="radio" name="l-arousal" id="la2" value="2" /><label for="la2">2</label>
+          <input type="radio" name="l-arousal" id="la3" value="3" /><label for="la3">3</label>
+          <input type="radio" name="l-arousal" id="la4" value="4" /><label for="la4">4</label>
+          <input type="radio" name="l-arousal" id="la5" value="5" /><label for="la5">5</label>
+          <input type="radio" name="l-arousal" id="la6" value="6" /><label for="la6">6</label>
+          <input type="radio" name="l-arousal" id="la7" value="7" /><label for="la7">7</label>
+        </div>
+      </div>
+      <div class="likert-row">
+        <p class="likert-question">Anxiety</p>
+        <div class="likert-labels"><span>Calm / Relaxed</span><span>Anxious / Stressed</span></div>
+        <div class="likert-scale">
+          <input type="radio" name="l-anxiety" id="lan1" value="1" /><label for="lan1">1</label>
+          <input type="radio" name="l-anxiety" id="lan2" value="2" /><label for="lan2">2</label>
+          <input type="radio" name="l-anxiety" id="lan3" value="3" /><label for="lan3">3</label>
+          <input type="radio" name="l-anxiety" id="lan4" value="4" /><label for="lan4">4</label>
+          <input type="radio" name="l-anxiety" id="lan5" value="5" /><label for="lan5">5</label>
+          <input type="radio" name="l-anxiety" id="lan6" value="6" /><label for="lan6">6</label>
+          <input type="radio" name="l-anxiety" id="lan7" value="7" /><label for="lan7">7</label>
+        </div>
+      </div>
+      <div class="likert-row">
+        <p class="likert-question">Focus</p>
+        <div class="likert-labels"><span>Distracted</span><span>Focused</span></div>
+        <div class="likert-scale">
+          <input type="radio" name="l-focus" id="lf1" value="1" /><label for="lf1">1</label>
+          <input type="radio" name="l-focus" id="lf2" value="2" /><label for="lf2">2</label>
+          <input type="radio" name="l-focus" id="lf3" value="3" /><label for="lf3">3</label>
+          <input type="radio" name="l-focus" id="lf4" value="4" /><label for="lf4">4</label>
+          <input type="radio" name="l-focus" id="lf5" value="5" /><label for="lf5">5</label>
+          <input type="radio" name="l-focus" id="lf6" value="6" /><label for="lf6">6</label>
+          <input type="radio" name="l-focus" id="lf7" value="7" /><label for="lf7">7</label>
+        </div>
+      </div>
+      <div class="likert-row">
+        <p class="likert-question">Emotional Tone</p>
+        <div class="likert-labels"><span>Ominous / Dark</span><span>Uplifting / Bright</span></div>
+        <div class="likert-scale">
+          <input type="radio" name="l-tone" id="lt1" value="1" /><label for="lt1">1</label>
+          <input type="radio" name="l-tone" id="lt2" value="2" /><label for="lt2">2</label>
+          <input type="radio" name="l-tone" id="lt3" value="3" /><label for="lt3">3</label>
+          <input type="radio" name="l-tone" id="lt4" value="4" /><label for="lt4">4</label>
+          <input type="radio" name="l-tone" id="lt5" value="5" /><label for="lt5">5</label>
+          <input type="radio" name="l-tone" id="lt6" value="6" /><label for="lt6">6</label>
+          <input type="radio" name="l-tone" id="lt7" value="7" /><label for="lt7">7</label>
+        </div>
+      </div>
+      <div class="likert-row">
+        <p class="likert-question">Texture</p>
+        <div class="likert-labels"><span>Smooth / Soft</span><span>Rough / Harsh</span></div>
+        <div class="likert-scale">
+          <input type="radio" name="l-texture" id="lx1" value="1" /><label for="lx1">1</label>
+          <input type="radio" name="l-texture" id="lx2" value="2" /><label for="lx2">2</label>
+          <input type="radio" name="l-texture" id="lx3" value="3" /><label for="lx3">3</label>
+          <input type="radio" name="l-texture" id="lx4" value="4" /><label for="lx4">4</label>
+          <input type="radio" name="l-texture" id="lx5" value="5" /><label for="lx5">5</label>
+          <input type="radio" name="l-texture" id="lx6" value="6" /><label for="lx6">6</label>
+          <input type="radio" name="l-texture" id="lx7" value="7" /><label for="lx7">7</label>
+        </div>
+      </div>
+      <div class="likert-row">
+        <p class="likert-question">Intensity</p>
+        <div class="likert-labels"><span>Weak / Delicate</span><span>Powerful / Aggressive</span></div>
+        <div class="likert-scale">
+          <input type="radio" name="l-intensity" id="li1" value="1" /><label for="li1">1</label>
+          <input type="radio" name="l-intensity" id="li2" value="2" /><label for="li2">2</label>
+          <input type="radio" name="l-intensity" id="li3" value="3" /><label for="li3">3</label>
+          <input type="radio" name="l-intensity" id="li4" value="4" /><label for="li4">4</label>
+          <input type="radio" name="l-intensity" id="li5" value="5" /><label for="li5">5</label>
+          <input type="radio" name="l-intensity" id="li6" value="6" /><label for="li6">6</label>
+          <input type="radio" name="l-intensity" id="li7" value="7" /><label for="li7">7</label>
+        </div>
+      </div>
+      <div class="likert-row">
+        <p class="likert-question">Complexity</p>
+        <div class="likert-labels"><span>Simple / Boring</span><span>Complex / Mysterious</span></div>
+        <div class="likert-scale">
+          <input type="radio" name="l-complexity" id="lc1" value="1" /><label for="lc1">1</label>
+          <input type="radio" name="l-complexity" id="lc2" value="2" /><label for="lc2">2</label>
+          <input type="radio" name="l-complexity" id="lc3" value="3" /><label for="lc3">3</label>
+          <input type="radio" name="l-complexity" id="lc4" value="4" /><label for="lc4">4</label>
+          <input type="radio" name="l-complexity" id="lc5" value="5" /><label for="lc5">5</label>
+          <input type="radio" name="l-complexity" id="lc6" value="6" /><label for="lc6">6</label>
+          <input type="radio" name="l-complexity" id="lc7" value="7" /><label for="lc7">7</label>
+        </div>
+      </div>
+    </div>
+  
+    <p class="form-error" id="err-likert" style="margin-bottom:1rem;">Please answer all scales</p>
+    <button class="btn" id="likert-next-btn" onclick="nextLikert()">
+      <span id="likert-next-label">Next →</span>
+    </button>
+  </div>
   <!-- DONE -->
   <div class="screen" id="screen-done">
     <span class="thankyou-icon">◎</span>
