@@ -1055,6 +1055,16 @@
       return entry ? entry[key] : "";
     };
 
+    const likertFor = (title) => {
+      const entry = likertAnswers.find(a => a?.clip === title);
+      if (!entry) return "";
+      // Combines all 8 Likert scores into one string: "5,4,2,6,1,7,3,4"
+      return [
+        entry.valence, entry.arousal, entry.anxiety, entry.focus,
+        entry.tone, entry.texture, entry.intensity, entry.complexity
+      ].join(",");
+    };
+
     const fields = {
       "entry.1169412550": preliminary.age,
       "entry.1940936492": preliminary.gender,
@@ -1062,13 +1072,21 @@
       "entry.140639284":  preliminary.selfTaught,
       "entry.1861966939": preliminary.performance,
       "entry.1785082074": preliminary.audioOutput,
-      "entry.1331108516": preliminary.baselineValence,
-      "entry.1805770602": preliminary.baselineArousal,
-      "entry.358544908":  preliminary.baselineAnxiety,
-      "entry.172236766":  preliminary.baselineFocus,
-      "entry.401580039":  hueFor("Mode 2", "hueStart"),
-      "entry.1442421221": hueFor("Mode 4", "hueStart"),
-      "entry.559325467":  hueFor("Mode 6", "hueStart"),
+
+      "entry.1331108516": [
+        preliminary.baselineValence,
+        preliminary.baselineArousal,
+        preliminary.baselineAnxiety,
+        preliminary.baselineFocus,].join(","),
+
+      "entry.1805770602": [hueFor("Mode 2", "hueStart"), hueFor("Mode 2", "hueEnd"),].join(","),
+      "entry.358544908": [hueFor("Mode 4", "hueStart"), hueFor("Mode 4", "hueEnd"),].join(","),  
+      "entry.172236766": [hueFor("Mode 6", "hueStart"), hueFor("Mode 6", "hueEnd"),].join(","),
+
+      "entry.401580039":  likertfor("Mode 2"),
+      "entry.1442421221": likertfor("Mode 4"),
+      "entry.559325467":  likertfor("Mode 6"),
+      
       "entry.1994507963": hueFor("Mode 2", "hueEnd"),
       "entry.390210294":  hueFor("Mode 4", "hueEnd"),
       "entry.486741963":  hueFor("Mode 6", "hueEnd"),
