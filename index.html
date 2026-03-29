@@ -1310,8 +1310,7 @@
       if (currentLikert < likertClips.length - 1) {
         loadLikertClip(currentLikert + 1);
       } else {
-        showScreen("screen-done");
-        submitToForm();
+        showScreen("screen-post");
       }
     }
     function submitPost() {
@@ -1341,34 +1340,7 @@
         // NOW we go to your final Thank You screen and send the data
         showScreen("screen-post");
       }
-      function submitPost() {
-          const scales = ["p-valence", "p-arousal", "p-anxiety", "p-focus"];
-          const moodValues = scales.map(n => document.querySelector(`input[name="${n}"]:checked`)?.value);
-          const synVal = document.querySelector('input[name="synaesthesia"]:checked')?.value;
 
-          let valid = true;
-
-          // Validation
-          if (moodValues.some(v => !v) || !synVal) {
-            document.getElementById("err-post").classList.add("visible");
-            valid = false;
-          } else {
-            document.getElementById("err-post").classList.remove("visible");
-          }
-
-          if (!valid) return;
-
-          // Save answers
-          preliminary.postValence = moodValues[0];
-          preliminary.postArousal = moodValues[1];
-          preliminary.postAnxiety = moodValues[2];
-          preliminary.postFocus = moodValues[3];
-          preliminary.synaesthesia = synVal;
-
-          // NOW we go to your final Thank You screen and send the data
-          showScreen("screen-done");
-          submitToForm();
-        }
 </script>
 </body>
 </html>
