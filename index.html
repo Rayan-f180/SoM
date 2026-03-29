@@ -775,6 +775,89 @@
       <span id="likert-next-label">Next →</span>
     </button>
   </div>
+  <div class="screen" id="screen-post">
+    <p class="eyebrow">Final Step</p>
+    <h1 style="font-size:2rem; margin-bottom:0.5rem;">Your current <em>mood</em></h1>
+    <p class="description" style="margin-bottom:2.5rem;">Please rate your current state of mind right now.</p>
+  
+    <div style="width:100%;">
+      <div class="likert-row">
+        <p class="likert-question">Valence</p>
+        <div class="likert-labels"><span>Unhappy / Negative</span><span>Happy / Positive</span></div>
+        <div class="likert-scale">
+          <input type="radio" name="p-valence" id="pv1" value="1" /><label for="pv1">1</label>
+          <input type="radio" name="p-valence" id="pv2" value="2" /><label for="pv2">2</label>
+          <input type="radio" name="p-valence" id="pv3" value="3" /><label for="pv3">3</label>
+          <input type="radio" name="p-valence" id="pv4" value="4" /><label for="pv4">4</label>
+          <input type="radio" name="p-valence" id="pv5" value="5" /><label for="pv5">5</label>
+          <input type="radio" name="p-valence" id="pv6" value="6" /><label for="pv6">6</label>
+          <input type="radio" name="p-valence" id="pv7" value="7" /><label for="pv7">7</label>
+        </div>
+      </div>
+  
+      <div class="likert-row">
+        <p class="likert-question">Arousal</p>
+        <div class="likert-labels"><span>Sleepy / Tired</span><span>Alert / Energetic</span></div>
+        <div class="likert-scale">
+          <input type="radio" name="p-arousal" id="pa1" value="1" /><label for="pa1">1</label>
+          <input type="radio" name="p-arousal" id="pa2" value="2" /><label for="pa2">2</label>
+          <input type="radio" name="p-arousal" id="pa3" value="3" /><label for="pa3">3</label>
+          <input type="radio" name="p-arousal" id="pa4" value="4" /><label for="pa4">4</label>
+          <input type="radio" name="p-arousal" id="pa5" value="5" /><label for="pa5">5</label>
+          <input type="radio" name="p-arousal" id="pa6" value="6" /><label for="pa6">6</label>
+          <input type="radio" name="p-arousal" id="pa7" value="7" /><label for="pa7">7</label>
+        </div>
+      </div>
+  
+      <div class="likert-row">
+        <p class="likert-question">Anxiety</p>
+        <div class="likert-labels"><span>Calm / Relaxed</span><span>Anxious / Stressed</span></div>
+        <div class="likert-scale">
+          <input type="radio" name="p-anxiety" id="pan1" value="1" /><label for="pan1">1</label>
+          <input type="radio" name="p-anxiety" id="pan2" value="2" /><label for="pan2">2</label>
+          <input type="radio" name="p-anxiety" id="pan3" value="3" /><label for="pan3">3</label>
+          <input type="radio" name="p-anxiety" id="pan4" value="4" /><label for="pan4">4</label>
+          <input type="radio" name="p-anxiety" id="pan5" value="5" /><label for="pan5">5</label>
+          <input type="radio" name="p-anxiety" id="pan6" value="6" /><label for="pan6">6</label>
+          <input type="radio" name="p-anxiety" id="pan7" value="7" /><label for="pan7">7</label>
+        </div>
+      </div>
+  
+      <div class="likert-row">
+        <p class="likert-question">Focus</p>
+        <div class="likert-labels"><span>Distracted</span><span>Focused</span></div>
+        <div class="likert-scale">
+          <input type="radio" name="p-focus" id="pf1" value="1" /><label for="pf1">1</label>
+          <input type="radio" name="p-focus" id="pf2" value="2" /><label for="pf2">2</label>
+          <input type="radio" name="p-focus" id="pf3" value="3" /><label for="pf3">3</label>
+          <input type="radio" name="p-focus" id="pf4" value="4" /><label for="pf4">4</label>
+          <input type="radio" name="p-focus" id="pf5" value="5" /><label for="pf5">5</label>
+          <input type="radio" name="p-focus" id="pf6" value="6" /><label for="pf6">6</label>
+          <input type="radio" name="p-focus" id="pf7" value="7" /><label for="pf7">7</label>
+        </div>
+      </div>
+  
+      <div class="form-section" style="margin-top:2rem;">
+        <p class="form-section-title">Synaesthesia</p>
+        <div class="form-row">
+          <label class="form-label">Do you experience synaesthesia?</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="synaesthesia" value="Yes - diagnosed" /> Yes –
+              diagnosed</label>
+            <label class="radio-label"><input type="radio" name="synaesthesia" value="Yes - undiagnosed" /> Yes –
+              Undiagnosed</label>
+            <label class="radio-label"><input type="radio" name="synaesthesia" value="No" /> No</label>
+            <label class="radio-label"><input type="radio" name="synaesthesia" value="I don't know" /> I don't
+              know</label>
+          </div>
+          <p class="form-error" id="err-synaesthesia">Please select an option</p>
+        </div>
+      </div>
+    </div>
+  
+    <p class="form-error" id="err-post" style="margin-bottom:1rem;">Please answer all fields above</p>
+    <button class="btn" onclick="submitPost()">Finish Study →</button>
+  </div>
   <!-- DONE -->
   <div class="screen" id="screen-done">
     <span class="thankyou-icon">◎</span>
@@ -784,6 +867,7 @@
     <p class="description">Your colour responses have been recorded.</p>
     <p class="status-msg" id="status-msg">Saving…</p>
   </div>
+  
 
 </div>
 
@@ -1087,9 +1171,9 @@
       "entry.1442421221": likertFor("Mode 4"),
       "entry.559325467":  likertFor("Mode 6"),
 
-      "entry.1994507963": hueFor("Mode 2", "hueEnd"),
-      "entry.390210294":  hueFor("Mode 4", "hueEnd"),
-      "entry.486741963":  hueFor("Mode 6", "hueEnd"),
+      "entry.1994507963": [preliminary.postValence, preliminary.postArousal, preliminary.postAnxiety, preliminary.postFocus].join(","),
+      "entry.390210294":  preliminary.synaesthesia,
+   
     };
 
     Object.entries(fields).forEach(([name, val]) => {
@@ -1230,6 +1314,61 @@
         submitToForm();
       }
     }
+    function submitPost() {
+        const scales = ["p-valence", "p-arousal", "p-anxiety", "p-focus"];
+        const moodValues = scales.map(n => document.querySelector(`input[name="${n}"]:checked`)?.value);
+        const synVal = document.querySelector('input[name="synaesthesia"]:checked')?.value;
+
+        let valid = true;
+
+        // Validation
+        if (moodValues.some(v => !v) || !synVal) {
+          document.getElementById("err-post").classList.add("visible");
+          valid = false;
+        } else {
+          document.getElementById("err-post").classList.remove("visible");
+        }
+
+        if (!valid) return;
+
+        // Save answers
+        preliminary.postValence = moodValues[0];
+        preliminary.postArousal = moodValues[1];
+        preliminary.postAnxiety = moodValues[2];
+        preliminary.postFocus = moodValues[3];
+        preliminary.synaesthesia = synVal;
+
+        // NOW we go to your final Thank You screen and send the data
+        showScreen("screen-post");
+      }
+      function submitPost() {
+          const scales = ["p-valence", "p-arousal", "p-anxiety", "p-focus"];
+          const moodValues = scales.map(n => document.querySelector(`input[name="${n}"]:checked`)?.value);
+          const synVal = document.querySelector('input[name="synaesthesia"]:checked')?.value;
+
+          let valid = true;
+
+          // Validation
+          if (moodValues.some(v => !v) || !synVal) {
+            document.getElementById("err-post").classList.add("visible");
+            valid = false;
+          } else {
+            document.getElementById("err-post").classList.remove("visible");
+          }
+
+          if (!valid) return;
+
+          // Save answers
+          preliminary.postValence = moodValues[0];
+          preliminary.postArousal = moodValues[1];
+          preliminary.postAnxiety = moodValues[2];
+          preliminary.postFocus = moodValues[3];
+          preliminary.synaesthesia = synVal;
+
+          // NOW we go to your final Thank You screen and send the data
+          showScreen("screen-done");
+          submitToForm();
+        }
 </script>
 </body>
 </html>
