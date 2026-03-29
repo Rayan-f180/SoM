@@ -497,16 +497,21 @@
     <p class="eyebrow">Take a moment</p>
     <h1 style="font-size:2rem; margin-bottom:1rem;">Close your <em>eyes</em></h1>
     <p class="description" style="margin-bottom:0;">Focus on your breathing. The study will begin shortly.</p>
+  
     <div class="timer-circle">
       <svg viewBox="0 0 120 120">
         <circle class="timer-track" cx="60" cy="60" r="54" />
-        <circle class="timer-progress" id="timer-progress" cx="60" cy="60" r="54"
-          stroke-dasharray="339.3" stroke-dashoffset="0" />
+        <circle class="timer-progress" id="timer-progress" cx="60" cy="60" r="54" stroke-dasharray="339.3"
+          stroke-dashoffset="0" />
       </svg>
       <div class="timer-number" id="timer-number">30</div>
     </div>
-    <p class="description">A sound will play when you are ready to begin.</p>
+  
+    <p class="description" style="margin-bottom: 2rem;">A sound will play when you are ready to begin.</p>
+  
+    <button class="btn" id="start-timer-btn" onclick="startMindfulness()">Start Timer</button>
   </div>
+
 
   <!-- BASELINE MOOD -->
   <div class="screen" id="screen-baseline">
@@ -951,14 +956,18 @@
     preliminary.audioOutput = audioOut.value;
 
     showScreen("screen-mindfulness");
-    startMindfulness();
+    
   }
 
   // ── MINDFULNESS ───────────────────────────────────────────────────────────
+  // ── MINDFULNESS ───────────────────────────────────────────────────────────
   function startMindfulness() {
+    // Hide the button once clicked so they can't click it twice
+    document.getElementById("start-timer-btn").style.display = "none";
+
     const DURATION = 30, CIRC = 339.3;
     const prog = document.getElementById("timer-progress");
-    const num  = document.getElementById("timer-number");
+    const num = document.getElementById("timer-number");
     let remaining = DURATION;
     prog.style.strokeDashoffset = "0";
 
@@ -966,10 +975,13 @@
       remaining--;
       num.textContent = remaining;
       prog.style.strokeDashoffset = ((DURATION - remaining) / DURATION * CIRC).toString();
-      if (remaining <= 0) { clearInterval(tick); showScreen("screen-baseline"); }
+
+      if (remaining <= 0) {
+        clearInterval(tick);
+        showScreen("screen-baseline");
+      }
     }, 1000);
   }
-
   // ── BASELINE ──────────────────────────────────────────────────────────────
   function submitBaseline() {
     const scales = ["b-valence", "b-arousal", "b-anxiety", "b-focus"];
@@ -1338,7 +1350,8 @@
         preliminary.synaesthesia = synVal;
 
         // NOW we go to your final Thank You screen and send the data
-        showScreen("screen-post");
+        showScreen("screen-done");
+      submitToForm();
       }
 
 </script>
