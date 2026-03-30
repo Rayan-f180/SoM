@@ -1013,7 +1013,7 @@
     document.getElementById("clip-title").textContent = CLIPS[index].title;
     document.getElementById("next-btn").disabled      = true;
     document.getElementById("next-label").textContent =
-      index === CLIPS.length - 1 ? "Finish →" : "Next clip →";
+      index === CLIPS.length - 1 ? "Next Stage →" : "Next clip →";
 
     [0, 1, 2].forEach(i => {
       document.getElementById(`dot-${i}`).className =
@@ -1236,7 +1236,7 @@
       document.getElementById("likert-clip-label").textContent = `Clip ${index + 1} of ${likertClips.length}`;
       document.getElementById("likert-clip-title").textContent = likertClips[index].title;
       document.getElementById("likert-next-label").textContent =
-        index === likertClips.length - 1 ? "Finish →" : "Next →";
+        index === likertClips.length - 1 ? "Final Stage →" : "Next →";
 
       // Update step dots
       [0, 1, 2].forEach(i => {
