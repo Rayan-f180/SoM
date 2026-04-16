@@ -3,16 +3,24 @@ import numpy as np
 
 
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-file_path = os.path.join(script_dir, 'SoM Project Data(150426).csv')
 
-df = pd.read_csv(file_path)
 
-# Define the labels for the multi-value columns based on your survey design
+
+df = pd.read_csv('DATA.csv') # Make sure to adjust the path to your actual CSV file
+
+# Spliting the Multi-Value Columns into Separate Columns
 column_maps = {
     'Baseline Mood (Valence, Arousal, Anxiety, Focus)': ['Base_Valence', 'Base_Arousal', 'Base_Anxiety', 'Base_Focus'],
+
+    'Mode 2 Hues': ['M2_Hue_Start', 'M2_Hue_End'],
+    'Mode 4 Hues': ['M4_Hue_Start', 'M4_Hue_End'],
+    'Mode 6 Hues': ['M6_Hue_Start', 'M6_Hue_End'],
+
+    'Likert Mode 2': ['M2_LK_1', 'M2_LK_2', 'M2_LK_3', 'M2_LK_4', 'M2_LK_5', 'M2_LK_6', 'M2_LK_7', 'M2_LK_8'],
+    'Likert Mode 4': ['M4_LK_1', 'M4_LK_2', 'M4_LK_3', 'M4_LK_4', 'M4_LK_5', 'M4_LK_6', 'M4_LK_7', 'M4_LK_8'],
+    'Likert Mode 6': ['M6_LK_1', 'M6_LK_2', 'M6_LK_3', 'M6_LK_4', 'M6_LK_5', 'M6_LK_6', 'M6_LK_7', 'M6_LK_8'],
+
     'Post (Valence, Arousal, Anxiety, Focus)': ['Post_Valence', 'Post_Arousal', 'Post_Anxiety', 'Post_Focus'],
-    # You can add maps for the Likert scales (Q1, Q2, Q3...) here as well
 }
 
 def expand_columns(df, column_maps):
@@ -29,5 +37,12 @@ def expand_columns(df, column_maps):
 
 df_cleaned = expand_columns(df, column_maps)
 
-# Accessing a specific value is now easy:
-print(df_cleaned)
+#  CLEANED DATAFRAME STRUCTURE:
+#  BASELINE MOOD ----> 'Baseline_Valence', 'Baseline_Arousal', 'Baseline_Anxiety', 'Baseline_Focus'
+#  MODE "x" HUES ----> 'MX_Hue_Start', 'MX_Hue_End' , Where X is the mode number (2, 4, 6)
+#  LIKERT MODE "x" ----> 'MX_LK_1', 'MX_LK_2', 'MX_LK_3', 'MX_LK_4', 'MX_LK_5', 'MX_LK_6', 'MX_LK_7', 'MX_LK_8' , Where X is the mode number (2, 4, 6)
+#  LK_1-LK_8 -------------> 1.Valence, 2.Arousal, 3.Anxiety, 4.Focus, 5.Emotional Tone, 6.Texture, 7.Intensity, 8.Complectity
+#  POST MOOD ----> 'Post_Valence', 'Post_Arousal', 'Post_Anxiety', 'Post_Focus'
+
+
+
